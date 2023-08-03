@@ -1,34 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# InvoiceGenius
 
-## Getting Started
+InvoiceGenius is an invoice service that allows sellers to generate and manage invoices for their clients. It provides a convenient solution for creating professional invoices and offers options to download invoices as PDFs or send them via email.
 
-First, run the development server:
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![API Documentation](https://img.shields.io/badge/API%20Documentation-Link-green)](https://your-api-documentation-link.com)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Features
+
+- User-friendly interface for easy invoice creation and management.
+- Invoice customization options to personalize the appearance and layout.
+- Client management system to store client details and track transaction history.
+- PDF generation for easy downloading, printing, and sharing of invoices.
+- Email integration for sending invoices directly to clients.
+- Secure data handling and storage.
+- Optional payment integration for seamless transactions.
+
+## Installation
+
+1. Clone the repository:
+
+```js
+git clone https://github.com/abubalo/InvoiceGenius.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Configure the necessary environment variables. See the Configuration section below for details.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Start the server:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```js
 
-## Learn More
+npm start
 
-To learn more about Next.js, take a look at the following resources:
+Access InvoiceGenius in your browser at http://localhost:3000.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+## Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+InvoiceGenius requires the following environment variables to be set:
 
-## Deploy on Vercel
+    API_KEY - Your API key for authentication.
+    DATABASE_URL - URL for connecting to your database.
+    SMTP_HOST - SMTP host for sending email.
+    SMTP_PORT - SMTP port number.
+    SMTP_USERNAME - SMTP username.
+    SMTP_PASSWORD - SMTP password.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Documentation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please refer to the API Documentation for detailed information on how to interact with the InvoiceGenius API.
+
+
+## Contributing
+
+Contributions are welcome! If you find a bug or have any suggestions for improvement, please open an issue or submit a pull request.
+## License
+
+This project is licensed under the MIT License.
+
+
+Feel free to customize this template according to your project's specific details, such as adding badges, updating installation instructions, and including any additional sections relevant to your project.
+
