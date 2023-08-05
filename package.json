@@ -26,6 +26,7 @@
   "devDependencies": {
     "@fullcalendar/daygrid": "^6.1.7",
     "@fullcalendar/react": "^6.1.7",
+    "axios": "^1.4.0",
     "chalk": "^5.2.0",
     "framer-motion": "^10.15.0",
     "nodemailer": "^6.9.2",
