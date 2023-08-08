@@ -7,9 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // colors: {
-      //   "primary": "hsl(224, 76%, 48%)",
-      // },
+      colors: {
+        "primary": "hsl(224, 76%, 48%)",
+      },
 
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
