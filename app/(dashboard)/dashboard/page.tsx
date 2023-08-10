@@ -11,7 +11,7 @@ import {
 } from "@/components/icons/Icons";
 import TransactionHistory from "../components/TransactonHistrory";
 import Activites from "../components/Activites";
-import Filter from "@/components/Filter";
+
 
 const Dashboard = () => {
   return (
