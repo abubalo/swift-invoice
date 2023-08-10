@@ -118,28 +118,40 @@ const TransactionHistory = () => {
       <div>
         <h1 className="text-xl font-semibold">Histories</h1>
       </div>
-      <table className="table-auto border border-gray-500">
-        <thead>
-          <tr className="bg-gray-700">
-            <th className="px-4 py-2 text-left">No:</th>
-            <th className="px-4 py-2 text-left">Date Created</th>
-            <th className="px-4 py-2 text-left">Client</th>
-            <th className="px-4 py-2 text-left">Amount</th>
-            <th className="px-4 py-2 text-left">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {invoiceData.map((invoice, index) => (
-            <tr key={index}>
-              <td className="border-y border-gray-500 px-4 py-2">{invoice.invoiceNumber}</td>
-              <td className="border-y border-gray-500 px-4 py-2">{invoice.dateCreated}</td>
-              <td className="border-y border-gray-500 px-4 py-2">{invoice.client}</td>
-              <td className="border-y border-gray-500 px-4 py-2">{invoice.amount}</td>
-              <td className="border-y border-gray-500 px-4 py-2">{invoice.status}</td>
+      <div className="overflow-x-auto">
+        <table className="table-auto border border-gray-500">
+          <thead>
+            <tr className="bg-gray-700">
+              <th className="px-4 py-2 text-left">No:</th>
+              <th className="px-4 py-2 text-left">Date Created</th>
+              <th className="px-4 py-2 text-left">Client</th>
+              <th className="px-4 py-2 text-left">Amount</th>
+              <th className="px-4 py-2 text-left">Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {invoiceData.map((invoice, index) => (
+              <tr key={index}>
+                <td className="border-y border-gray-500 px-4 py-2">
+                  {invoice.invoiceNumber}
+                </td>
+                <td className="border-y border-gray-500 px-4 py-2">
+                  {invoice.dateCreated}
+                </td>
+                <td className="border-y border-gray-500 px-4 py-2">
+                  {invoice.client}
+                </td>
+                <td className="border-y border-gray-500 px-4 py-2">
+                  {invoice.amount}
+                </td>
+                <td className="border-y border-gray-500 px-4 py-2">
+                  {invoice.status}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
