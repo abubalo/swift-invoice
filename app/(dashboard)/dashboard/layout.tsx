@@ -1,4 +1,3 @@
-import DashboardHeader from "../components/DashboardHeader";
 import "../../globals.css";
 
 export const metadata = {
