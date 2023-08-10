@@ -3,14 +3,22 @@ import Card from "../components/Card";
 import EarningsChart from "../components/EarningsChart";
 import TemplateCard from "../components/TemplateCard";
 import Nav from "../components/Nav";
-import { InvoiceIcon, LoveIcon, MoneyIcon, UserIcon } from "@/components/icons/Icons";
+import {
+  InvoiceIcon,
+  LoveIcon,
+  MoneyIcon,
+  UserIcon,
+} from "@/components/icons/Icons";
+import TransactionHistory from "../components/TransactonHistrory";
+import Activites from "../components/Activites";
+import Filter from "@/components/Filter";
 
 const Dashboard = () => {
   return (
     <>
       <div className="p-4 space-y-6">
         <Nav />
-        <div className="">
+        <div className="space-y-6">
           <div
             id=""
             className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4"
@@ -41,9 +49,13 @@ const Dashboard = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-2 mt-8 p-4 lg:flex-row lg:gap-5 lg:p-8">
+          <div className="flex flex-col gap-2 mt-8 lg:flex-row lg:gap-3">
             <EarningsChart />
             <TemplateCard />
+          </div>
+          <div className="flex gap-5 justify-between">
+            <Activites />
+            <TransactionHistory />
           </div>
         </div>
       </div>
