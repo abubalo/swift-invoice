@@ -1,4 +1,5 @@
-import "../globals.css";
+import Header from "@/components/Header";
+import "../../globals.css";
 
 export const metadata = {
   title: "Swift invoice",
@@ -14,6 +15,7 @@ export default function RootLayout({
     <html lang="en">
       <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
       <body>
+        <Header />
         {children}
       </body>
     </html>
