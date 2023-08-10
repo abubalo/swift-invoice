@@ -53,7 +53,7 @@ const Dashboard = () => {
             <EarningsChart />
             <TemplateCard />
           </div>
-          <div className="flex gap-5 justify-between">
+          <div className="flex flex-col gap-5 justify-between lg:flex-row">
             <Activites />
             <TransactionHistory />
           </div>
