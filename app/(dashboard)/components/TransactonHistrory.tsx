@@ -1,3 +1,12 @@
+import {
+  Table,
+  TableHeader,
+  TableHeadCell,
+  TableBody,
+  TableRow,
+  TableData,
+  Caption,
+} from "@/components/table/TableUtils";
 import React from "react";
 
 type InvoiceData = Array<{
@@ -37,7 +46,7 @@ const TransactionHistory = () => {
       dateCreated: "2023-08-10",
       client: "Tech Solutions Inc.",
       amount: 3200,
-      status: "partial payment",
+      status: "installment",
     },
     {
       invoiceNumber: "VC-7123D",
@@ -100,7 +109,7 @@ const TransactionHistory = () => {
       dateCreated: "2023-08-12",
       client: "Financial Services Ltd.",
       amount: 5000,
-      status: "late",
+      status: "overdue",
     },
     {
       invoiceNumber: "PP-9900O",
@@ -111,47 +120,73 @@ const TransactionHistory = () => {
     },
   ];
 
+  const statusColorMapping: { [status: string]: string } = {
+    paid: "bg-green-500",
+    unpaid: "border border-red-500 text-white",
+    pending: "bg-yellow-500",
+    late: "bg-red-500",
+    overdue: "bg-red-400",
+    processing: "bg-blue-500",
+    sent: "bg-blue-300",
+    void: "bg-gray-500",
+    hold: "bg-gray-300",
+    disputed: "bg-orange-500",
+    installment: "bg-purple-500",
+  };
+
   console.log(invoiceData);
 
   return (
-    <div className="w-full p-4 space-y-3 border border-gray-700 rounded-md">
-      <div>
-        <h1 className="text-xl font-semibold">Histories</h1>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="table-auto border border-gray-500">
-          <thead>
-            <tr className="bg-gray-700">
-              <th className="px-4 py-2 text-left">No:</th>
-              <th className="px-4 py-2 text-left">Date Created</th>
-              <th className="px-4 py-2 text-left">Client</th>
-              <th className="px-4 py-2 text-left">Amount</th>
-              <th className="px-4 py-2 text-left">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {invoiceData.map((invoice, index) => (
-              <tr key={index}>
-                <td className="border-y border-gray-500 px-4 py-2">
-                  {invoice.invoiceNumber}
-                </td>
-                <td className="border-y border-gray-500 px-4 py-2">
-                  {invoice.dateCreated}
-                </td>
-                <td className="border-y border-gray-500 px-4 py-2">
-                  {invoice.client}
-                </td>
-                <td className="border-y border-gray-500 px-4 py-2">
-                  {invoice.amount}
-                </td>
-                <td className="border-y border-gray-500 px-4 py-2">
+    <div className="w-full" aria-describedby="transaction histories table">
+      <Table className=" table-auto p-4 border border-gray-700 rounded-md">
+        <Caption className="text-xl font-semibold text-left mb-3">
+          Transaction histories
+        </Caption>
+        <TableHeader className="">
+          <TableRow className="bg-gray-700">
+            <TableHeadCell className="px-4 py-2 text-left">No:</TableHeadCell>
+            <TableHeadCell className="px-4 py-2 text-left">
+              Date Created
+            </TableHeadCell>
+            <TableHeadCell className="px-4 py-2 text-left">
+              Client
+            </TableHeadCell>
+            <TableHeadCell className="px-4 py-2 text-left">
+              Amount
+            </TableHeadCell>
+            <TableHeadCell className="px-4 py-2 text-left">
+              Status
+            </TableHeadCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {invoiceData.splice(0, 10).map((invoice, index) => (
+            <TableRow key={index}>
+              <TableData className="border-y border-gray-500 px-4 py-2">
+                {invoice.invoiceNumber}
+              </TableData>
+              <TableData className="border-y border-gray-500 px-4 py-2">
+                {invoice.dateCreated}
+              </TableData>
+              <TableData className="border-y border-gray-500 px-4 py-2">
+                {invoice.client}
+              </TableData>
+              <TableData className="border-y border-gray-500 px-4 py-2">
+                {invoice.amount}
+              </TableData>
+              <TableData className="border-y border-gray-500 px-4 py-2">
+                <span
+                  className={`w-max  font-medium px-2 py-[0.15rem] text-sm text-center text-black leading-1 rounded-full ${
+                    statusColorMapping[invoice.status] || ""
+                  }`}
+                >
                   {invoice.status}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                </span>
+              </TableData>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 };
