@@ -28,6 +28,7 @@
     "@fullcalendar/react": "^6.1.7",
     "axios": "^1.4.0",
     "chalk": "^5.2.0",
+    "formik": "^2.4.3",
     "framer-motion": "^10.15.0",
     "nodemailer": "^6.9.2",
     "prisma": "^4.15.0-integration-windows-portability.6",
