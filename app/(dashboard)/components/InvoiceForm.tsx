@@ -218,7 +218,7 @@ const InvoiceForm = () => {
                     key={index}
                     index={index}
                     service={service}
-                    
+                    handleChange={formik.handleChange}
                     remove={() => arrayHelplers.remove(index)}
                   />
                 ))}
