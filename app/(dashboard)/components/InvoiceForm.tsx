@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ServiceForm from "./ServiceForm";
-import { FieldArray, useFormik , FieldArrayRenderProps} from "formik";
+import { FieldArray, useFormik, FieldArrayRenderProps } from "formik";
 
 type Company = {
   companyName: string;
@@ -16,7 +16,7 @@ type Customer = {
   customerEmail: string;
 };
 
-type Service = {
+export type Service = {
   serviceName: string;
   quantity: number;
   price: number;
@@ -63,7 +63,6 @@ const InvoiceForm = () => {
   //   });
   // };
 
-
   return (
     <div className="min-h-screen flex justify-center items-center">
       <div className="border border-gray-800 p-4 rounded-lg ">
@@ -71,7 +70,6 @@ const InvoiceForm = () => {
           Invoice Form
         </h1>
 
-        
         <form
           action=""
           onSubmit={formik.handleSubmit}
@@ -215,10 +213,12 @@ const InvoiceForm = () => {
           <FieldArray name="services">
             {(arrayHelplers: FieldArrayRenderProps) => (
               <div>
-                {formik.values.services.map((_, index) => (
+                {formik.values.services.map((service, index) => (
                   <ServiceForm
                     key={index}
                     index={index}
+                    service={service}
+                    
                     remove={() => arrayHelplers.remove(index)}
                   />
                 ))}
