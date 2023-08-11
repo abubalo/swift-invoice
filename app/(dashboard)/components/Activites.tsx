@@ -4,10 +4,10 @@ import ClientCard from "./ClientCard";
 
 const Activites = () => {
   return (
-    <div className="w-full p-4 border border-gray-700 lg:w-[70%] space-y-4 rounded-md">
+    <div className="w-full h-max p-4 border border-gray-700 lg:w-[70%] space-y-4 rounded-md">
       <div>
         <h1 className="text-xl font-semibold">Recent invoices</h1>
-        <p className="text-gray-300">You made 265 sales this month.</p>
+        <p className="text-sm text-gray-300">You made 65 sales this month.</p>
       </div>
       <div>
         <ClientCard
