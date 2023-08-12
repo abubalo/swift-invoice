@@ -39,8 +39,8 @@ const ServiceForm = ({
         <label htmlFor="quantity">Quantity</label>
         <input
           type="number"
-          id={`services.${index}.serviceName`}
-          name={`services.${index}.serviceName`}
+          id={`services.${index}.quantity`}
+          name={`services.${index}.quantity`}
           min={1}
           inputMode={"numeric"}
           pattern="[0-9]*"
@@ -57,8 +57,8 @@ const ServiceForm = ({
         <label htmlFor="price">Price</label>
         <input
           type="text"
-          id={`services.${index}.serviceName`}
-          name={`services.${index}.serviceName`}
+          id={`services.${index}.price`}
+          name={`services.${index}.price`}
           min={1}
           inputMode={"numeric"}
           pattern="[0-9]*"
