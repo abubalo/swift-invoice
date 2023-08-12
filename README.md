@@ -1,9 +1,12 @@
-# InvoiceGenius
+# Swift Invoice
 
-InvoiceGenius is an invoice service that allows sellers to generate and manage invoices for their clients. It provides a convenient solution for creating professional invoices and offers options to download invoices as PDFs or send them via email.
+Swift Invoice is an invoice service that allows sellers to generate and manage invoices for their clients. It provides a convenient solution for creating professional invoices and offers options to download invoices as PDFs or send them via email.
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![API Documentation](https://img.shields.io/badge/API%20Documentation-Link-green)](https://your-api-documentation-link.com)
+
+
+![image](public/cover.png)
 
 ## Features
 
@@ -15,12 +18,14 @@ InvoiceGenius is an invoice service that allows sellers to generate and manage i
 - Secure data handling and storage.
 - Optional payment integration for seamless transactions.
 
+
+
 ## Installation
 
 1. Clone the repository:
 
 ```js
-git clone https://github.com/abubalo/InvoiceGenius.git
+git clone https://github.com/abubalo/Swift Invoice.git
 ```
 
 Configure the necessary environment variables. See the Configuration section below for details.
@@ -31,12 +36,12 @@ Start the server:
 
 npm start
 
-Access InvoiceGenius in your browser at http://localhost:3000.
+Access Swift Invoice in your browser at http://localhost:3000.
 
 ```
 ## Configuration
 
-InvoiceGenius requires the following environment variables to be set:
+Swift Invoice requires the following environment variables to be set:
 
     API_KEY - Your API key for authentication.
     DATABASE_URL - URL for connecting to your database.
@@ -47,7 +52,7 @@ InvoiceGenius requires the following environment variables to be set:
 
 ## API Documentation
 
-Please refer to the API Documentation for detailed information on how to interact with the InvoiceGenius API.
+Please refer to the API Documentation for detailed information on how to interact with the Swift Invoice API.
 
 
 ## Contributing
