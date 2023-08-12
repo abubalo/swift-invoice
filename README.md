@@ -1,4 +1,4 @@
-# Swift Invoice
+# ![image](/public/logo.svg) Swift Invoice
 
 Swift Invoice is an invoice service that allows sellers to generate and manage invoices for their clients. It provides a convenient solution for creating professional invoices and offers options to download invoices as PDFs or send them via email.
 
