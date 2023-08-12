@@ -2,8 +2,8 @@
 
 Swift Invoice is an invoice service that allows sellers to generate and manage invoices for their clients. It provides a convenient solution for creating professional invoices and offers options to download invoices as PDFs or send them via email.
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![API Documentation](https://img.shields.io/badge/API%20Documentation-Link-green)](https://your-api-documentation-link.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](/LICENSE)
+[![Demo](https://img.shields.io/badge/Demo-Link-blue)](https:swift-invoice.vercel.app)
 
 
 ![image](public/cover.png)
