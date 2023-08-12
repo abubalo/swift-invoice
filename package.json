@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/mongoose": "^5.11.97",
     "@types/node": "20.2.1",
     "@types/react": "18.2.6",
@@ -31,6 +33,7 @@
     "chalk": "^5.2.0",
     "formik": "^2.4.3",
     "framer-motion": "^10.15.0",
+    "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
     "nodemailer": "^6.9.2",
     "prisma": "^4.15.0-integration-windows-portability.6",
