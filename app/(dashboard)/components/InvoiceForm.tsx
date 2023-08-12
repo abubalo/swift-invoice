@@ -2,12 +2,8 @@
 
 import React from "react";
 import ServiceForm from "./ServiceForm";
-import {
-  FieldArray,
-  FieldArrayRenderProps,
-  Formik,
-  Form,
-} from "formik";
+import * as z from "zod";
+import { FieldArray, FieldArrayRenderProps, Formik, Form } from "formik";
 
 type Company = {
   companyName: string;
@@ -58,6 +54,32 @@ const InvoiceForm = () => {
     ],
   };
 
+  const companySchema = z.object({
+    companyName: z.string().min(1, "Company name is required"),
+    address: z.string().min(1, "Address is required"),
+    phone: z.string().min(1, "Phone number is required"),
+    email: z.string().email("Invalid email address"),
+  });
+
+  const customerSchema = z.object({
+    billTo: z.string().min(1, "Bill To is required"),
+    customerName: z.string().min(1, "Customer name is required"),
+    customerAddress: z.string().min(1, "Customer address is required"),
+    customerEmail: z.string().email("Invalid customer email address"),
+  });
+
+  const serviceSchema = z.object({
+    serviceName: z.string().min(1, "Service name is required"),
+    quantity: z.number().min(1, "Quantity must be at least 1"),
+    price: z.number().min(0, "Price must be a non-negative number"),
+  });
+
+  const valuesSchema = z.object({
+    company: companySchema,
+    customer: customerSchema,
+    services: z.array(serviceSchema),
+  });
+
   // const addServiceForm = (values: InitialValues) => {
   //   formik.values.services.push({
   //     serviceName: "",
@@ -75,7 +97,11 @@ const InvoiceForm = () => {
         <h1 className="text-2xl font-semibold text-center my-3">
           Invoice Form
         </h1>
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          // validationSchema={valuesSchema}
+        >
           {(formik) => {
             return (
               <Form className="space-y-3">
@@ -259,9 +285,3 @@ const InvoiceForm = () => {
 };
 
 export default InvoiceForm;
-function index(
-  index: any,
-  arg1: { serviceName: string; quantity: number; price: number }
-) {
-  throw new Error("Function not implemented.");
-}
