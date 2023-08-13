@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose"
+import { Document, ObjectId } from "mongoose"
 
 
 export interface UserDocument extends Document {
@@ -8,7 +8,7 @@ export interface UserDocument extends Document {
 }
 
 export interface ClientDocument extends Document {
-  user: mongoose.Types.ObjectId;
+  user: ObjectId;
   name: string;
   email: string;
   billingAddress: string;
@@ -22,6 +22,7 @@ export interface IService {
 }
 
 export interface ICompany {
+  user: ObjectId;
   companyName: string;
   address: string;
   phone: string;
@@ -42,8 +43,8 @@ export interface IInvoice extends Document {
 }
 
 export interface Payment extends Document {
-  _id: mongoose.Types.ObjectId;
-  invoice: mongoose.Types.ObjectId;
+  _id: ObjectId;
+  invoice: ObjectId;
   amount: number;
   paymentDate: Date;
   paymentMethod: string;
@@ -51,23 +52,23 @@ export interface Payment extends Document {
 }
 
 export interface Settings {
-  _id: mongoose.Types.ObjectId;
-  user: mongoose.Types.ObjectId;
+  _id: ObjectId;
+  user: ObjectId;
   preferredCurrency: string;
   defaultTaxRate: number;
 }
 
 export interface Notification {
-  _id: mongoose.Types.ObjectId;
-  user: mongoose.Types.ObjectId;
+  _id: ObjectId;
+  user: ObjectId;
   recipient: string;
   message: string;
   dateTime: Date;
 }
 
 export interface ActivityLog {
-  _id: mongoose.Types.ObjectId;
-  user: mongoose.Types.ObjectId;
+  _id: ObjectId;
+  user: ObjectId;
   action: string;
   timestamp: Date;
 }
