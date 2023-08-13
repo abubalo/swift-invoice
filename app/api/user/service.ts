@@ -5,7 +5,6 @@ import Jwt from "jsonwebtoken";
 
 export const addUser = async (
   name: string,
-  phone: number,
   email: string,
   password: string
 ): Promise<UserDocument> => {
@@ -16,7 +15,6 @@ export const addUser = async (
 
     const newUser = await UserModel.create({
       name,
-      phone,
       email,
       password: hashedPassword,
     });
