@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write .",
     "lint": "next lint"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "chalk": "^5.2.0",
     "formik": "^2.4.3",
     "framer-motion": "^10.15.0",
+    "husky": "^8.0.3",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
     "nodemailer": "^6.9.2",
