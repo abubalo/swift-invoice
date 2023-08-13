@@ -3,7 +3,6 @@ import mongoose, { Document } from "mongoose"
 
 export interface UserDocument extends Document {
   name: string;
-  phone?: number;
   email: string;
   password: string;
 }
