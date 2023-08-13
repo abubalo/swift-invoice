@@ -53,7 +53,8 @@ export const selectUser = async (id: string): Promise<UserDocument | null> => {
     const user = await UserModel.findById(id);
     return user;
   } catch (error: any) {
-    throw new Error(`Error selecting user: ${error.message}`);
+    console.log("User does not exist");
+    return null
   }
 };
 
