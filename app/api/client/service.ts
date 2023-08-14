@@ -1,7 +1,7 @@
 import { ClientDocument } from "@/app/types/types";
 import ClientModel from "./model";
 
-export const addCient = async (
+export const addClient = async (
   userId: string,
   name: string,
   email: string,
