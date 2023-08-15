@@ -134,7 +134,6 @@ const TransactionHistory = () => {
     installment: "bg-purple-500",
   };
 
-  console.log(invoiceData);
 
   return (
     <div className="w-full" aria-describedby="transaction histories table">
@@ -143,7 +142,7 @@ const TransactionHistory = () => {
           Transaction histories
         </Caption>
         <TableHeader className="">
-          <TableRow className="bg-gray-700">
+          <TableRow className="bg-gray-900">
             <TableHeadCell className="px-4 py-2 text-left">No:</TableHeadCell>
             <TableHeadCell className="px-4 py-2 text-left">
               Date Created
@@ -161,7 +160,7 @@ const TransactionHistory = () => {
         </TableHeader>
         <TableBody>
           {invoiceData.splice(0, 10).map((invoice, index) => (
-            <TableRow key={index}>
+            <TableRow key={index} className="text-gray-300">
               <TableData className="border-y border-gray-500 px-4 py-2">
                 {invoice.invoiceNumber}
               </TableData>
