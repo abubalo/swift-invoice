@@ -15,7 +15,7 @@ export const Table = ({
 }: Props & { caption?: string }) => (
   <div className={`overflow-x-auto ${className}`}>
     <table
-      className={className}
+      className={`w-full table-auto ${className}`}
       aria-label="Data Table"
       aria-describedby="table-description"
     >
