@@ -40,6 +40,9 @@ export interface IInvoice extends Document {
   company: ICompany;
   customer: ICustomer;
   services: IService[];
+  issueDate: Date | string;
+  dueDate: Date | string;
+  totalAmount: number;
 }
 
 export interface Payment extends Document {
