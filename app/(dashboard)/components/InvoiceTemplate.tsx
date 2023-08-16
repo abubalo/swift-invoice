@@ -6,15 +6,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/table/TableUtils";
-import Logo from "@/components/ui/Logo";
-import Image from "next/image";
 import React from "react";
 
 const InvoiceTemplate = () => {
   return (
     <section className="w-full h-auto flex justify-center">
       <main className="w-auto h-auto bg-slate-900 p-3 space-y-6">
-        <Logo />
         <div id="invoice-header" className="flex justify-between bg-slate-950">
           <div id="company-name" className="space-y-1">
             <h3>XYZ Solutions Inc.</h3>
