@@ -36,7 +36,7 @@ const EarningsChart = () => {
   }));
 
   return (
-    <ResponsiveContainer width="100%" height={400} className="py-2 border border-gray-700 rounded-md">
+    <ResponsiveContainer width="100%" height={400} className="basis-3/5 py-2 border border-gray-700 rounded-md">
       <BarChart data={monthlyEarningsData}>
         <XAxis
           dataKey="month"
@@ -50,7 +50,7 @@ const EarningsChart = () => {
           axisLine={false}
           tickFormatter={(value) => `$${value}`}
         />
-        <Legend />
+        {/* <Legend /> */}
         <Bar
           dataKey="earnings"
           fill="#8884d8"
