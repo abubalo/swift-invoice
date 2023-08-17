@@ -27,10 +27,11 @@ export const TableHeader: React.FC<Props> = ({ children, className = "" }) => (
   <thead className={className}>{children}</thead>
 );
 
-export const TableHeadCell: React.FC<Props> = ({
+export const TableHeadCell: React.FC<Props & {colSpan?: number}> = ({
   children = "",
   className = "",
-}) => <th className={className}>{children}</th>;
+  colSpan = undefined
+}) => <th colSpan={colSpan} className={className}>{children}</th>;
 
 export const TableBody: React.FC<Props> = ({ children, className = "" }) => (
   <tbody className={className}>{children}</tbody>
