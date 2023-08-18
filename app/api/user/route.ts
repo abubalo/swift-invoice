@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { addUser } from "./controller";
 
 export async function POST(req: NextRequest) {
-  const data = await req.json();
+ try {
+  return await addUser(req); 
+ } catch (error: any) {
+  console.log(error.message);
+ }
 
-  await addUser(data); 
-
-  console.log("data", data);
 }
 
 export async function GET() { 
