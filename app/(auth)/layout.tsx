@@ -1,5 +1,4 @@
 import "../globals.css";
-import dbConnect from "../api/utils/db";
 
 export const metadata = {
   title: "Swift invoice",
@@ -12,7 +11,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  dbConnect();
   return (
     <html lang="en">
       <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
