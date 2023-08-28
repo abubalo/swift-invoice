@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 export default async function dbConnect() {
   const mongoURL = process.env.MONGODB_URL;
   if (!mongoURL) {
