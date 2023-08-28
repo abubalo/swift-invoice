@@ -12,7 +12,7 @@ import React from "react";
 const InvoiceTemplate = () => {
   return (
     <section className="absolute w-full h-auto top-0 left-0 bg-white text-black">
-      <main className="w-full h-auto p-3 space-y-6">
+      <main className="w-full h-auto p-3 space-y-10">
         <div className="flex flex-col">
           <div id="" className="flex justify-between my-8">
             <Logo />
@@ -51,7 +51,7 @@ const InvoiceTemplate = () => {
 
         <Table className="">
           <TableHeader className="text-left">
-            <TableRow className="bg-primary text-white">
+            <TableRow className="bg-black text-white">
               <TableHeadCell colSpan={1} className="p-2 border-y">
                 Product Description
               </TableHeadCell>
@@ -88,35 +88,71 @@ const InvoiceTemplate = () => {
               <TableData className="py-2 border-y">$2500</TableData>
             </TableRow>
             <TableRow className="">
-              <TableData colSpan={3} className="text-right text-sm ">
+              <TableData className="text-left text-sm  py-2">
                 Subtotal:
               </TableData>
-              <TableData className=" text-sm">$3, 000</TableData>
+              <TableData className="text-right text-sm py-2">$3, 000</TableData>
             </TableRow>
             <TableRow>
-              <TableData colSpan={3} className="text-right  text-sm">
+              <TableData className="text-left  text-sm py-2">
                 Tax (8%):
               </TableData>
-              <TableData className=" text-sm">$128</TableData>
+              <TableData className="text-right text-sm py-2">$128</TableData>
             </TableRow>
             <TableRow>
-              <TableData colSpan={3} className="text-right text-sm">
-                Total:
-              </TableData>
-              <TableData className=" text-sm">$3,128</TableData>
+              <TableData className="text-left text-sm py-2">Total:</TableData>
+              <TableData className="text-right text-sm py-2">$3,128</TableData>
             </TableRow>
           </TableBody>
         </Table>
-        <div className="space-y-2 text-sm">
-          <div>
+        <div className="space-y-2">
+          <div className="text-sm">
+            <h2 className="font-semibold text-lg">Payment Instructions:</h2>
             <p>
               Please make the payment via bank transfer to the following
               account:
             </p>
             <p>Bank: Goldleaf Bank</p>
             <p>Account Number: 61191696</p>
+            <p>Swift Code: GLDBANKCODE</p>
           </div>
-          <p>Thank you for doing business with us!</p>
+          <div className="text-sm">
+            <h2 className="font-semibold text-lg">Terms and Conditions:</h2>
+            <p>
+              <li>
+                Payment: Full payment is due within 5 days of the invoice date.
+                Late payments are subject to a 5% penalty.
+              </li>
+            </p>
+            <p>
+              <li>
+                Currency: All amounts are in USD (United States Dollars) unless
+                otherwise specified.
+              </li>
+            </p>
+            <p>
+              <li>
+                Invoice Discrepancies: Any discrepancies must be reported within
+                3 days of receiving the invoice.
+              </li>
+            </p>
+            <p>
+              <li>
+                Services: The scope and details of the services provided are
+                outlined in the attached contract or agreement.
+              </li>
+            </p>
+            <p>
+              <li>
+                Confidentiality: Both parties agree to maintain the
+                confidentiality of all information shared during the project.
+              </li>
+            </p>
+          </div>
+          <p>
+            Thank you for choosing Swift Invoice! For any inquiries, contact us
+            at info@xyzsolutions.com.
+          </p>
         </div>
       </main>
     </section>
