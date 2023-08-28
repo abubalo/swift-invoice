@@ -6,7 +6,8 @@ import Link from "next/link";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { string, object } from "zod";
 import axios from "axios";
-import {toFormikValidationSchema} from "zod-formik-adapter"
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import { useRouter } from "next/navigation";
 
 export type SinupData = {
   name: string;
@@ -16,16 +17,20 @@ export type SinupData = {
 };
 
 const SignUp = () => {
+  const router = useRouter();
+
   const onSubmit = async (
     values: SinupData,
     { setSubmiting, restForm }: any
   ) => {
     try {
-      const response = await axios.post("api/user", values);
+      const {name, email, password} = values;
+      const response = await axios.post("api/user", {name, email, password});
       console.log(await response.data);
+      router.push("/dashboard");
     } catch (error) {
-        console.log(error);
-    };
+      console.log(error);
+    }
   };
 
   const formSchema = object({
