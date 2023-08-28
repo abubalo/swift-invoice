@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
 
 export default class UserService{
-  addUser = async (
+  public static addUser = async (
     name: string,
     email: string,
     password: string
@@ -26,7 +26,7 @@ export default class UserService{
     }
   };
   
-  authenticate = async (
+  public static authenticate = async (
     email: string,
     password: string
   ): Promise<UserDocument | null> => {
@@ -47,7 +47,7 @@ export default class UserService{
     return user; // Return the found user document, or null if not found
   };
   
-  selectUser = async (id: string): Promise<UserDocument | null> => {
+  public static selectUser = async (id: string): Promise<UserDocument | null> => {
     try {
       const user = await UserModel.findById(id);
       return user;
@@ -57,7 +57,7 @@ export default class UserService{
     }
   };
   
-  updateUser = async (
+  public static updateUser = async (
     id: string,
     newData: object
   ): Promise<UserDocument | null> => {
@@ -67,7 +67,7 @@ export default class UserService{
     return user;
   };
   
-  deleteUser = async (id: string): Promise<Boolean> => {
+  public static deleteUser = async (id: string): Promise<Boolean> => {
     try {
       const user = await UserModel.findByIdAndDelete(id);
   
@@ -77,7 +77,7 @@ export default class UserService{
     }
   };
   
-  verifyUser = async (email: string): Promise<Boolean> => {
+  public static verifyUser = async (email: string): Promise<Boolean> => {
     try {
       const isUserExist = await UserModel.findOne({ email });
       return !!isUserExist;
