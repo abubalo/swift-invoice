@@ -3,36 +3,33 @@ import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 // import { serialize } from "next/serialize";
 
-// Add inport alias to avoid name conflit
-import {
-  addUser as serviceAddUser,
-  selectUser,
-  updateUser as serviceUpdateUser,
-  deleteUser as deleteUpdateUser,
-  authenticate,
-  generateAccessToken,
-  verifyAccessToken,
-  verifyUser,
-} from "./service";
+import UserService from "./service";
 
 type User = {
   name: string;
   email: string;
   password: string;
 };
-export const addUser = async (data: User): Promise<NextResponse> => {
-  try {
-    const { name, email, password } = data;
 
-    const isExists = await verifyUser(email);
+export const addUser = async (req: NextRequest): Promise<NextResponse> => {
+  try {
+    const { name, email, password } = await req.json();
+    console.log(await req.json())
+    
+
+    const isExists = await UserService.verifyUser(email);
 
     if (isExists) {
+      console.log("User already exist");
       return NextResponse.json("User already exists", { status: 409 });
+    }else{
+      console.log("You are good bro")
     }
 
-    const user = await serviceAddUser(name, email, password)
+    const user = await UserService.addUser(name, email, password)
     return NextResponse.json(user, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error.message);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
