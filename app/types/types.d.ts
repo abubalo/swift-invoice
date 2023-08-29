@@ -21,7 +21,7 @@ export interface IService {
   price: number;
 }
 
-export interface ICompany {
+export interface CompanyDocument {
   user: ObjectId;
   companyName: string;
   address: string;
@@ -36,8 +36,8 @@ export interface ICustomer {
   customerEmail: string;
 }
 
-export interface IInvoice extends Document {
-  company: ICompany;
+export interface InvoiceDocument extends Document {
+  company: CompanyDocument;
   customer: ICustomer;
   services: IService[];
   issueDate: Date | string;
