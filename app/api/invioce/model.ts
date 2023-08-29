@@ -1,5 +1,5 @@
-import { Schema, Model, model } from "mongoose";
-import { IInvoice } from "@/app/types/types";
+import { Schema, Model, model, models } from "mongoose";
+import { InvoiceDocument } from "@/app/types/types";
 
 // Define the subdocument schemas
 const CompanySchema = new Schema({
@@ -43,6 +43,6 @@ const InvoiceSchema = new Schema({
   paymentHistory: [PaymentSchema],
 });
 
-const InvoiceModel: Model<IInvoice> = model<IInvoice>("Invoice", InvoiceSchema);
+const InvoiceModel: Model<InvoiceDocument> = models?.Invoice || model<InvoiceDocument>("Invoice", InvoiceSchema);
 
 export default InvoiceModel;

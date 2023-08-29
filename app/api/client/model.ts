@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { ClientDocument } from "@/app/types/types";
 
-
 const clientSchema = new mongoose.Schema<ClientDocument>({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   name: { type: String, required: true },
@@ -9,6 +8,8 @@ const clientSchema = new mongoose.Schema<ClientDocument>({
   billingAddress: { type: String, required: true },
 });
 
-const ClientModel = mongoose.model<ClientDocument>("Client", clientSchema);
+const ClientModel: ClientDocument =
+  mongoose.models?.Client ||
+  mongoose.model<ClientDocument>("Client", clientSchema);
 
 export default ClientModel;

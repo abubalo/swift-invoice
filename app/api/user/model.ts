@@ -1,4 +1,4 @@
-import { Schema, Model, model } from "mongoose";
+import mongoose, { Schema, Model} from "mongoose";
 import { UserDocument } from "@/app/types/types";
 
 
@@ -8,6 +8,6 @@ const userSchema = new Schema<UserDocument>({
   password: { type: String, required: true },
 });
 
-const UserModel: Model<UserDocument> = model("User", userSchema);
+const UserModel: Model<UserDocument> = mongoose.models?.User || mongoose.model<UserDocument>("User", userSchema);
 
 export default UserModel 
