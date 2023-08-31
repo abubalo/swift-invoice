@@ -2,7 +2,9 @@ import { UserDocument } from "@/app/types/types";
 import UserModel from "./model";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
+import dbConnect from "../utils/db";
 
+dbConnect();
 export default class UserService{
   public static addUser = async (
     name: string,
@@ -19,7 +21,7 @@ export default class UserService{
         email,
         password: hashedPassword,
       });
-  
+    console.log("Add new user!")
       return newUser;
     } catch (error: any) {
       throw new Error(`Error adding user: ${error.message}`);
