@@ -11,7 +11,7 @@ export interface ClientDocument extends Document {
   user: ObjectId;
   name: string;
   email: string;
-  billingAddress: string;
+  address: string;
 }
 
 
@@ -23,7 +23,7 @@ export interface ItemDocument {
   totalPrice: number;
 }
 
-export interface CompanyDocument {
+export interface SellerDocument {
   user: ObjectId;
   name: string;
   address: string;
@@ -31,21 +31,29 @@ export interface CompanyDocument {
   email: string;
 }
 
-export interface CustomerDocument {
+export interface BuyerDocument {
   name: string;
   address: string;
   email: string;
 }
 
 export interface InvoiceDocument extends Document {
-  company: CompanyDocument;
-  customer: CustomerDocument;
-  Items: ItemDocument[];
-  invoiceNo: string;
-  currency: string;
-  issueDate: Date;
-  dueDate: Date;
-  paymentStatus: "Pending" | "Paid" | "Partially Paid";
+  user: ObjectId,
+  invoice: {
+    number: string,
+    issueDate: Date,
+    dueDate: Date 
+  };
+  seller: SellerDocument;
+  client: BuyerDocument;
+  items: ItemDocument[];
+  subTotal: number;
+  taxtRate: number;
+  discountRate: number;
+  discountAmount: number;
+  total: number;
+  currency: "USD" | "EUR" | "NGN" | "AUD" | "GBP";
+  paymentStatus: "Pending" | "Paid" | "Due";
   paymentHistory: {
     paymentDate: Date;
     amount: number;
