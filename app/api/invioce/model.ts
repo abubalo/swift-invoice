@@ -2,16 +2,16 @@ import { Schema, Model, model, models } from "mongoose";
 import { InvoiceDocument } from "@/app/types/types";
 
 // Define a shared schema for contact information
-const CompanySchema = new Schema({
+const SellerSchema = new Schema({
   name: { type: String, required: true },
   address: { type: String, required: true },
   email: { type: String, required: true },
 });
 
 const BuyerSchema = new Schema({
-  name: {type: String, require: true},
-  email: {type: String, require: true},
-})
+  name: { type: String, require: true },
+  email: { type: String, require: true },
+});
 const ItemSchema = new Schema({
   name: String,
   description: { type: String, required: true },
@@ -28,20 +28,27 @@ const PaymentSchema = new Schema({
 
 // Define the main schema
 const InvoiceSchema = new Schema({
-  seller: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  invoiceNo: { type: String, required: true },
-  company: CompanySchema,
-  buyer: BuyerSchema,
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  invoice: {
+    number: { type: String, required: true },
+    issueDate: { type: Date, required: true },
+    dueDate: { type: Date, required: true },
+  },
+  seller: SellerSchema,
+  client: BuyerSchema,
   items: [ItemSchema],
+  subTotal: { type: Number, required: true },
+  taxRate: { type: String, required: true },
+  discountRate: { type: Number, required: true },
+  discountAmount: { type: Number, required: true },
+  total: { type: Number, required: true },
   currency: { type: String, required: true },
-  issueDate: { type: Date, required: true },
-  dueDate: { type: Date, required: true },
-  paymentStatus: {
+  status: {
     type: String,
-    enum: ["Pending", "Paid", "Partially Paid"],
+    enum: ["Pending", "Paid", "Due"],
     default: "Pending",
   },
-  paymentHistory: [PaymentSchema],
+  paymentHistory: PaymentSchema,
 });
 
 const InvoiceModel: Model<InvoiceDocument> =
