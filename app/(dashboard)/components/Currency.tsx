@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC } from "react";
 
 type Props = {
   currency: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const Currency: FC<Props> = ({ currency, handleChange }) => {
