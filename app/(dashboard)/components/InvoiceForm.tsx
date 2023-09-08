@@ -6,8 +6,8 @@ import * as Yup from "yup"
 import { FieldArray, FieldArrayRenderProps, Formik, Form } from "formik";
 import Currency from "./Currency";
 import {
-  CompanyDocument,
-  CustomerDocument,
+  SellerDocument,
+  BuyerDocument,
   ItemDocument,
 } from "@/app/types/types";
 import RateInput from "./RateInput";
@@ -15,8 +15,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 type InitialValues = {
-  company: Omit<CompanyDocument, "user">;
-  customer: CustomerDocument;
+  seller: Omit<SellerDocument, "user">;
+  client: BuyerDocument;
   items: ItemDocument[];
   tax: number;
   discount: number;
@@ -24,13 +24,13 @@ type InitialValues = {
 };
 
 const initialValues = {
-  company: {
+  seller: {
     name: "",
     address: "",
     phone: "",
     email: "",
   },
-  customer: {
+  client: {
     name: "",
     address: "",
     email: "",
@@ -51,17 +51,17 @@ const initialValues = {
 
 
 // Define your Yup validation schema
-const companySchema = Yup.object({
-  name: Yup.string().min(1, "Company name is required"),
+const sellerSchema = Yup.object({
+  name: Yup.string().min(1, "seller name is required"),
   address: Yup.string().min(1, "Address is required"),
   phone: Yup.string().min(1, "Phone number is required"),
   email: Yup.string().email("Invalid email address"),
 });
 
-const customerSchema = Yup.object({
-  name: Yup.string().min(1, "Customer name is required"),
-  address: Yup.string().min(1, "Customer address is required"),
-  email: Yup.string().email("Invalid customer email address"),
+const clientSchema = Yup.object({
+  name: Yup.string().min(1, "client name is required"),
+  address: Yup.string().min(1, "client address is required"),
+  email: Yup.string().email("Invalid client email address"),
 });
 
 const itemSchema = Yup.object({
@@ -71,8 +71,8 @@ const itemSchema = Yup.object({
 });
 
 const valuesSchema = Yup.object({
-  company: companySchema,
-  customer: customerSchema,
+  seller: sellerSchema,
+  client: clientSchema,
   items: Yup.array(itemSchema), // Correct schema definition
 });
 
@@ -85,7 +85,7 @@ const InvoiceForm = () => {
       const data = response.data;
       console.log(data);
 
-      router.push(`/preview?id=${data._id}`)
+      router.push(`/preview?v=${data._id}`)
     } catch (error: any) {
       console.log(error.message);
     }
@@ -136,17 +136,17 @@ const InvoiceForm = () => {
                   <div className="w-full flex gap-5 ">
                     <div className="w-full space-y-3">
                       <div id="" className="space-y-1">
-                        <label htmlFor="companyName">Company Name</label>
+                        <label htmlFor="sellerName">Seller Name</label>
                         <input
                           className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
                           type="text"
-                          id="companyName"
-                          name="company.name"
-                          value={formik.values.company.name}
+                          id="sellerName"
+                          name="seller.name"
+                          value={formik.values.seller.name}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           aria-required="true"
-                          aria-label="Your Comapany or Business Name"
+                          aria-label="Seller's name"
                         />
                       </div>
                       <div id="" className="space-y-1">
@@ -155,12 +155,12 @@ const InvoiceForm = () => {
                           className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
                           type="text"
                           id="address"
-                          name="company.address"
-                          value={formik.values.company.address}
+                          name="seller.address"
+                          value={formik.values.seller.address}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           aria-required="true"
-                          aria-label="Your Comapany Address"
+                          aria-label="Seller's Address"
                         />
                       </div>
                       <div id="" className="space-y-1">
@@ -169,12 +169,12 @@ const InvoiceForm = () => {
                           className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
                           type="text"
                           id="phone"
-                          name="company.phone"
-                          value={formik.values.company.phone}
+                          name="seller.phone"
+                          value={formik.values.seller.phone}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           aria-required="true"
-                          aria-label="Comapany Phone Number"
+                          aria-label="Seller's Phone Number"
                         />
                       </div>
                       <div id="" className="space-y-1">
@@ -183,28 +183,28 @@ const InvoiceForm = () => {
                           className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
                           type="text"
                           id="email"
-                          name="company.email"
-                          value={formik.values.company.email}
+                          name="seller.email"
+                          value={formik.values.seller.email}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           aria-required="true"
-                          aria-label="Email address"
+                          aria-label="Seller's Email address"
                         />
                       </div>
                     </div>
                     <div className="w-full space-y-3">
                       <div id="" className="space-y-1">
-                        <label htmlFor="customerName">Customer Name</label>
+                        <label htmlFor="clientName">client Name</label>
                         <input
                           className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
                           type="text"
-                          id="customerName"
-                          name="customer.name"
-                          value={formik.values.customer.name}
+                          id="clientName"
+                          name="client.name"
+                          value={formik.values.client.name}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           aria-required="true"
-                          aria-label="Customer Name"
+                          aria-label="client Name"
                         />
                       </div>
                       <div id="" className="space-y-1">
@@ -213,9 +213,9 @@ const InvoiceForm = () => {
                           className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
                           type="text"
                           id="address"
-                          name="customer.address"
+                          name="client.address"
                           placeholder=""
-                          value={formik.values.customer.address}
+                          value={formik.values.client.address}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           aria-required="true"
@@ -228,8 +228,8 @@ const InvoiceForm = () => {
                           className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
                           type="text"
                           id="email"
-                          name="customer.email"
-                          value={formik.values.customer.email}
+                          name="client.email"
+                          value={formik.values.client.email}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           aria-required="true"
