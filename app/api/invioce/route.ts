@@ -3,11 +3,15 @@ import { createInvoice } from "./controller";
 
 export const POST = async (req: Request) => {
   try {
-    const data = await req.json();
-    const response = await createInvoice(data);
-    return NextResponse.json(response.json(), { status: 200 });
+    const requestData = await req.json();
+    const response = await createInvoice(requestData);
+    const data = await response.json();
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
-    return NextResponse.json({"error": "Something went, please try again"}, {status: 500})
+    return NextResponse.json(
+      { error: "Something went, please try again" },
+      { status: 500 }
+    );
   }
 };
 
