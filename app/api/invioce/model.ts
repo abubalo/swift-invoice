@@ -13,6 +13,7 @@ const BuyerSchema = new Schema({
   email: { type: String, require: true },
   address: { type: String, require: true },
 });
+
 const ItemSchema = new Schema({
   name: String,
   description: { type: String, required: true },
@@ -24,7 +25,7 @@ const ItemSchema = new Schema({
 const PaymentSchema = new Schema({
   paymentDate: { type: Date, required: true },
   amount: { type: Number, required: true },
-  user: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Assuming a user is associated with payments
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 // Define the main schema
