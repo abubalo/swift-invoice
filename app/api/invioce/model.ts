@@ -11,6 +11,7 @@ const SellerSchema = new Schema({
 const BuyerSchema = new Schema({
   name: { type: String, require: true },
   email: { type: String, require: true },
+  address: { type: String, require: true },
 });
 const ItemSchema = new Schema({
   name: String,
