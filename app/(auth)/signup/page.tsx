@@ -4,9 +4,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { string, object } from "zod";
 import axios from "axios";
-import { toFormikValidationSchema } from "zod-formik-adapter";
+import * as Yup from "yup"
 import { useRouter } from "next/navigation";
 
 export type SinupData = {
@@ -40,11 +39,11 @@ const SignUp = () => {
     }
   };
 
-  const formSchema = object({
-    name: string().min(5).max(30).nonempty("Name is required"),
-    email: string().email("Invalid email").nonempty("Email is required"),
-    password: string().min(8).nonempty("Password is required"),
-    confirm: string().min(8).nonempty("Confirm password is required"),
+  const formSchema = Yup.object({
+    name: Yup.string().email('Invalid email').required('Email is required'),
+    email: Yup.string().email("Invalid email").required('Password is required'),
+    password: Yup.string().required('Password is required'),
+    confirm: Yup.string().required('Password is required'),
   });
 
   const initialValues = {
@@ -78,7 +77,7 @@ const SignUp = () => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, action) => onSubmit(values, action)}
-              validationSchema={toFormikValidationSchema(formSchema)}
+              validationSchema={formSchema}
             >
               {({ values, handleChange, handleBlur }) => (
                 <Form className="space-y-4 md:space-y-6">
