@@ -2,11 +2,14 @@ import { UserDocument } from "@/app/types/types";
 import Jwt from "jsonwebtoken"
 import UserModel from "../user/model";
 
-export const generateAccessToken = async (user: string): Promise<string> => {
+
+export const generateAccessToken = async (user: Partial<UserDocument>): Promise<string> => {
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) throw new Error("JWT is not provided");
+
+    const payload = {sub: user._id, name:user.name, email:user.email}
   
-    const token = await Jwt.sign({ sub: user }, jwtSecret, {});
+    const token = await Jwt.sign(payload, jwtSecret, {expiresIn: "24h"});
     return token;
   };
   
