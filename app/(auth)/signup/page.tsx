@@ -16,12 +16,17 @@ export type SinupData = {
   confirm: string;
 };
 
+type SetSubmit = {
+  setSubmitting: (isSubmitting: boolean) => void;
+};
+
+
 const SignUp = () => {
   const router = useRouter();
 
   const onSubmit = async (
     values: SinupData,
-    { setSubmiting, restForm }: any
+    { setSubmitting }: SetSubmit
   ) => {
     try {
       const {name, email, password} = values;
@@ -30,6 +35,8 @@ const SignUp = () => {
       router.push("/dashboard");
     } catch (error) {
       console.log(error);
+    }finally{
+      setSubmitting(false)
     }
   };
 
