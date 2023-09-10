@@ -32,16 +32,16 @@ const SignUp = () => {
       const response = await axios.post("api/user", {name, email, password});
       console.log(await response.data);
       router.push("/dashboard");
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error.message);
     }finally{
       setSubmitting(false)
     }
   };
 
   const formSchema = Yup.object({
-    name: Yup.string().email('Invalid email').required('Email is required'),
-    email: Yup.string().email("Invalid email").required('Password is required'),
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().email("Invalid email").required('Email is required'),
     password: Yup.string().required('Password is required'),
     confirm: Yup.string().required('Password is required'),
   });
@@ -98,7 +98,7 @@ const SignUp = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                     />
-                    <ErrorMessage name="name" component="div" />
+                    <ErrorMessage name="name" component="div" className="text-red-700"/>
                   </div>
                   <div>
                     <label
@@ -117,7 +117,7 @@ const SignUp = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                     />
-                    <ErrorMessage name="email" component="div" />
+                    <ErrorMessage name="email" component="div" className="text-red-700"/>
                   </div>
                   <div>
                     <label
@@ -134,9 +134,10 @@ const SignUp = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder="••••••••"
+                      autoComplete="current-password"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
-                    <ErrorMessage name="password" component="div" />
+                    <ErrorMessage name="password" component="div" className="text-red-700"/>
                   </div>
                   <div>
                     <label
@@ -153,9 +154,10 @@ const SignUp = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder=" ••••••••"
+                      autoComplete="current-password"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
-                    <ErrorMessage name="confirm" component="div" />
+                    <ErrorMessage name="confirm" component="div" className="text-red-700"/>
                   </div>
                   <div className="flex items-start">
                     <div className="flex items-center h-5">
