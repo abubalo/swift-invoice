@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import * as Yup from "yup";
-import { Formik, Form } from "formik";
+import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
@@ -84,7 +84,7 @@ const Login = () => {
                       >
                         Your email
                       </label>
-                      <input
+                      <Field
                         type="email"
                         name="email"
                         id="email"
@@ -94,6 +94,7 @@ const Login = () => {
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder=""
                       />
+                      <ErrorMessage name="name" component="div" className="text-red-700"/>
                     </div>
                     <div>
                       <label
@@ -102,7 +103,7 @@ const Login = () => {
                       >
                         Password
                       </label>
-                      <input
+                      <Field
                         type="password"
                         name="password"
                         id="password"
@@ -113,11 +114,12 @@ const Login = () => {
                         autoComplete="current-password"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       />
+                      <ErrorMessage name="name" component="div" className="text-red-700"/>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-start">
                         <div className="flex items-center h-5">
-                          <input
+                          <Field
                             id="remember"
                             aria-describedby="remember"
                             type="checkbox"
