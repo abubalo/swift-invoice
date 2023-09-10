@@ -39,11 +39,15 @@ const SignUp = () => {
     }
   };
 
-  const formSchema = Yup.object({
+  const formSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    email: Yup.string().email("Invalid email").required('Email is required'),
-    password: Yup.string().required('Password is required'),
-    confirm: Yup.string().required('Password is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters long'), // You can add additional password requirements here
+    confirm: Yup.string()
+      .required('Password confirmation is required')
+      .oneOf([Yup.ref('password')], 'Passwords must match'), // This checks if "confirm" matches "password"
   });
 
   const initialValues = {
