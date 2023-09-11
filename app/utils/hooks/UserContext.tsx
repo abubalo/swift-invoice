@@ -1,3 +1,5 @@
+"use client"
+
 import type { Dispatch, SetStateAction, ReactNode} from "react"
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";

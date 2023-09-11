@@ -9,9 +9,10 @@ import {
   SellerDocument,
   BuyerDocument,
   ItemDocument,
+  InvoiceDocument,
 } from "@/app/types/types";
 import RateInput from "./RateInput";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 
 type InitialValues = {
@@ -81,11 +82,11 @@ const InvoiceForm = () => {
   
   const onSubmit = async (inputData: InitialValues) => {
     try {
-      const response = await axios.post("api/invoice/", inputData);
+      const response: AxiosResponse<InvoiceDocument> = await axios.post("api/invoice/", inputData);
       const data = response.data;
       console.log(data);
 
-      router.push(`/preview?v=${data._id}`)
+      router.push(`/preview?v=${data.invoice.number}`)
     } catch (error: any) {
       console.log(error.message);
     }
