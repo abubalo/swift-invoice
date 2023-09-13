@@ -32,7 +32,7 @@ const SignUp = () => {
     try {
       const {name, email, password} = values;
       const response = await axios.post("api/user", {name, email, password});
-      setUser(repsonse);
+      setUser(response.data);
       if(response){
         router.replace("/dashboard");
       }
