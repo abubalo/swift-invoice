@@ -27,33 +27,7 @@ type InitialValues = {
   currency: "USD" | "EUR" | "NGN" | "AUD" | "GBP";
 };
 
-const initialValues = {
-  user: "",
-  seller: {
-    name: "",
-    address: "",
-    phone: "",
-    email: "",
-  },
-  client: {
-    name: "",
-    address: "",
-    email: "",
-  },
-  items: [
-    {
-      description: "",
-      quantity: 1,
-      unitPrice: 0,
-      totalPrice: 0,
-    },
-  ],
 
-  tax: 0,
-  discount: 0,
-  total: 0,
-  currency: "GBP" as "USD" | "EUR" | "NGN" | "AUD" | "GBP", //Initial value
-};
 
 
 // Define your Yup validation schema
@@ -85,9 +59,35 @@ const valuesSchema = Yup.object({
 const InvoiceForm = () => {
   const router = useRouter();
   const {user} = useContext(AuthContext);
+
+  const initialValues = {
+    user: user?.id,
+    seller: {
+      name: "",
+      address: "",
+      phone: "",
+      email: "",
+    },
+    client: {
+      name: "",
+      address: "",
+      email: "",
+    },
+    items: [
+      {
+        description: "",
+        quantity: 1,
+        unitPrice: 0,
+        totalPrice: 0,
+      },
+    ],
   
+    tax: 0,
+    discount: 0,
+    total: 0,
+    currency: "GBP" as "USD" | "EUR" | "NGN" | "AUD" | "GBP", //Initial value
+  };
   const onSubmit = async (inputData: InitialValues) => {
-    const data = {}
     try {
       const response: AxiosResponse<InvoiceDocument> = await axios.post("api/invoice/", inputData);
       const data = response.data;
