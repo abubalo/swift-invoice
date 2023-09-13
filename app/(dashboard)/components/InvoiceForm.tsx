@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import ItemForm from "./ItemForm";
 import * as Yup from "yup"
 import { FieldArray, FieldArrayRenderProps, Formik, Form } from "formik";
@@ -14,17 +14,21 @@ import {
 import RateInput from "./RateInput";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/app/utils/hooks/AuthContext";
 
 type InitialValues = {
+  user: string;
   seller: Omit<SellerDocument, "user">;
   client: BuyerDocument;
   items: ItemDocument[];
   tax: number;
   discount: number;
+  total: number;
   currency: "USD" | "EUR" | "NGN" | "AUD" | "GBP";
 };
 
 const initialValues = {
+  user: "",
   seller: {
     name: "",
     address: "",
@@ -47,6 +51,7 @@ const initialValues = {
 
   tax: 0,
   discount: 0,
+  total: 0,
   currency: "GBP" as "USD" | "EUR" | "NGN" | "AUD" | "GBP", //Initial value
 };
 
@@ -74,19 +79,21 @@ const itemSchema = Yup.object({
 const valuesSchema = Yup.object({
   seller: sellerSchema,
   client: clientSchema,
-  items: Yup.array(itemSchema), // Correct schema definition
+  items: Yup.array(itemSchema),
 });
 
 const InvoiceForm = () => {
   const router = useRouter();
+  const {user} = useContext(AuthContext);
   
   const onSubmit = async (inputData: InitialValues) => {
+    const data = {}
     try {
       const response: AxiosResponse<InvoiceDocument> = await axios.post("api/invoice/", inputData);
       const data = response.data;
       console.log(data);
 
-      router.push(`/preview?v=${data.invoice.number}`)
+      router.replace(`/preview?view=${data.invoice.number}`)
     } catch (error: any) {
       console.log(error.message);
     }
