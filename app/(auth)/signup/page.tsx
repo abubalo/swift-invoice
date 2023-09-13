@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import axios from "axios";
 import * as Yup from "yup"
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/app/utils/hooks/AuthContext";
 
 export type SinupData = {
   name: string;
@@ -22,6 +23,7 @@ type SetSubmit = {
 
 const SignUp = () => {
   const router = useRouter();
+  const {setUser} = useContext(AuthContext)
 
   const onSubmit = async (
     values: SinupData,
@@ -30,8 +32,10 @@ const SignUp = () => {
     try {
       const {name, email, password} = values;
       const response = await axios.post("api/user", {name, email, password});
-      console.log(await response.data);
-      router.push("/dashboard");
+      setUser(repsonse);
+      if(response){
+        router.replace("/dashboard");
+      }
     } catch (error: any) {
       console.log(error.message);
     }finally{
