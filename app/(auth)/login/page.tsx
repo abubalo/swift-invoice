@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import * as Yup from "yup";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { AuthContext } from "@/app/utils/hooks/AuthContext";
 
 type LoginFormValues = {
   email: string;
@@ -24,6 +25,7 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const router = useRouter();
+  const {setUser} = useContext(AuthContext)
 
   const initialValues = {
     email: "",
@@ -37,12 +39,16 @@ const Login = () => {
     try {
       const response = await axios.post("/api/user/login", values);
       const data = response.data;
-
-      console.log(data);
-
-      router.push("/dashboard");
+  
+      setUser(data);
+  
+      router.replace("/dashboard");
     } catch (error: any) {
-      console.error(error.message);
+      if (error.response && error.response.status === 401) {
+        console.error("Invalid login credentials");
+      } else {
+        console.error("An error occurred during login:", error.message);
+      }
     } finally {
       setSubmitting(false);
     }
