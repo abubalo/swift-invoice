@@ -6,21 +6,21 @@ import axios from "axios";
 import { UserDocument } from "@/app/types/types";
 
 
-export interface UserContextValue {
+export interface AuthContextValue {
   user: UserDocument | null;
   setUser: Dispatch<SetStateAction<UserDocument | null>>;
   ready: boolean;
   setReady: Dispatch<SetStateAction<boolean>>;
 }
 
-export const UserContext = createContext<UserContextValue>({
+export const AuthContext = createContext<AuthContextValue>({
   user: null,
   setUser: () => {},
   ready: false,
   setReady: () => Boolean,
 });
 
-export const UserContextProvider = ({
+export const AuthContextProvider = ({
   children,
 }: {
   children: ReactNode;
@@ -31,7 +31,7 @@ export const UserContextProvider = ({
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get("/api/User/profile");
+        const response = await axios.get("/api/user");
         setUser(response.data);
         setReady(true);
       } catch (error: any) {
@@ -45,8 +45,8 @@ export const UserContextProvider = ({
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, ready, setReady }}>
+    <AuthContext.Provider value={{ user, setUser, ready, setReady }}>
       {children}
-    </UserContext.Provider>
+    </AuthContext.Provider>
   );
 };
