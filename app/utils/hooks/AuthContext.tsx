@@ -1,39 +1,34 @@
-"use client"
+"use client";
 
-import type { Dispatch, SetStateAction, ReactNode} from "react"
+import { Dispatch, SetStateAction, ReactNode, useContext } from "react";
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { UserDocument } from "@/app/types/types";
 
-
 export interface AuthContextValue {
   user: UserDocument | null;
   setUser: Dispatch<SetStateAction<UserDocument | null>>;
-  ready: boolean;
-  setReady: Dispatch<SetStateAction<boolean>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AuthContext = createContext<AuthContextValue>({
+const AuthContext = createContext<AuthContextValue>({
   user: null,
   setUser: () => {},
-  ready: false,
-  setReady: () => Boolean,
+  loading: false,
+  setLoading: () => Boolean,
 });
 
-export const AuthContextProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserDocument | null>(null);
-  const [ready, setReady] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get("/api/user");
         setUser(response.data);
-        setReady(true);
+        setLoading(false);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -45,8 +40,10 @@ export const AuthContextProvider = ({
   }, [user]);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, ready, setReady }}>
+    <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);
