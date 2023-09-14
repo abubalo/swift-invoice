@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React from "react";
 import ItemForm from "./ItemForm";
 import * as Yup from "yup"
 import { FieldArray, FieldArrayRenderProps, Formik, Form } from "formik";
@@ -14,7 +14,7 @@ import {
 import RateInput from "./RateInput";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "@/app/utils/hooks/AuthContext";
+import { useAuth } from "@/app/utils/hooks/AuthContext";
 
 type InitialValues = {
   user: string;
@@ -58,7 +58,7 @@ const valuesSchema = Yup.object({
 
 const InvoiceForm = () => {
   const router = useRouter();
-  const {user} = useContext(AuthContext);
+  const {user} = useAuth();
 
   const initialValues = {
     user: user?.id,
@@ -91,9 +91,9 @@ const InvoiceForm = () => {
     try {
       const response: AxiosResponse<InvoiceDocument> = await axios.post("api/invoice/", inputData);
       const data = response.data;
-      console.log(data);
+      const invoiceNumber = data.invoice.number;
 
-      router.replace(`/preview?view=${data.invoice.number}`)
+      router.replace(`/invoice/preview?v=${invoiceNumber}`)
     } catch (error: any) {
       console.log(error.message);
     }
