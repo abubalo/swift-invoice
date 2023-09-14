@@ -1,5 +1,3 @@
-"use client";
-
 import dbConnect from "./api/utils/db";
 import "./globals.css";
 import { AuthProvider } from "./utils/hooks/AuthContext";
@@ -15,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  dbConnect();
+  // dbConnect();
 
   return (
     <html lang="en">
