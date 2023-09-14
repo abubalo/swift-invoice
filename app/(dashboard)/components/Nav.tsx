@@ -48,7 +48,7 @@ const Nav = () => {
       </button>
 
       <Link
-        href={"/invoice"}
+        href={"/invoice/new"}
         className="px-4 py-2 bg-primary rounded-lg hover:bg-primary/90"
       >
         Create Invoice
