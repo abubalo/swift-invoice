@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
-import { AuthContext } from "@/app/utils/hooks/AuthContext";
+import { useAuth } from "@/app/utils/hooks/AuthContext";
 
 type LoginFormValues = {
   email: string;
@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const router = useRouter();
-  const {setUser} = useContext(AuthContext)
+  const {setUser} = useAuth();
 
   const initialValues = {
     email: "",
