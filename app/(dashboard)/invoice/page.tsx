@@ -4,6 +4,8 @@ import React from "react";
 import InvoiceTemplate from "../components/InvoiceTemplate";
 import InvoiceForm from "../components/InvoiceForm";
 import Popup from "@/components/PopUp";
+import renderInvoiceToHTML from "./generatePDF/RenderInvoiceToHTML";
+
 
 const Generate = () => {
   
@@ -12,8 +14,9 @@ const Generate = () => {
       {/* <Popup isOpen="" onClose={""}>
         
       </Popup> */}
-      <InvoiceTemplate />
-      {/* <InvoiceForm /> */}
+      {/* <InvoiceTemplate /> */}
+
+     
     </section>
   );
 };
