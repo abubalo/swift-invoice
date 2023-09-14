@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -6,43 +8,93 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/table/TableUtils";
+import { FC, useEffect, useState } from "react";
 import Logo from "@/components/ui/Logo";
-import React from "react";
+import InvoiceModel from "@/app/api/invioce/model";
+import { InvoiceDocument } from "@/app/types/types";
+import LoadingIndicator from "@/components/ui/LoadingIndicator";
 
-const InvoiceTemplate = () => {
+type Props = {
+  invoiceNo: string | string[];
+};
+
+async function getInvoiceData(
+  invoiceNo: string | string[]
+): Promise<InvoiceDocument | null> {
+  try {
+    return await InvoiceModel.findOne({ invoiceNo });
+  } catch (error) {
+    return null;
+  }
+}
+
+const InvoiceTemplate: FC<Props> = ({ invoiceNo }) => {
+  const [data, setData] = useState<InvoiceDocument | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getInvoiceData(invoiceNo);
+        setData(result);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setData(null);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [invoiceNo]);
+
+  if (!loading) {
+    return (
+      <div>
+        <LoadingIndicator />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return <div>Unable to fetch data</div>;
+  }
+
   return (
-    <section className="absolute w-full h-auto top-0 left-0 bg-white text-black">
+    <section className="w-full h-auto top-0 left-0 bg-white text-black">
       <main className="w-full h-auto p-3 space-y-10">
         <div className="flex flex-col">
           <div id="" className="flex justify-between my-8">
             <Logo />
             <div className="text-sm">
               <p>
-                <span className="font-semibold">Invoice No:</span> QT-348SN
+                <span className="font-semibold">Invoice No:</span>
+                <span>{data.invoice.number}</span>
               </p>
               <p>
-                <span className="font-semibold">Issue Date:</span> 10th Nov,
-                2023
+                <span className="font-semibold">Issue Date:</span>
+                <span>{new Date(data.invoice.issueDate).toISOString()}</span>
               </p>
               <p>
-                <span className="font-semibold">Due Date:</span> 15th Nov, 2023
+                <span className="font-semibold">Due Date:</span>
+                <span>{new Date(data.invoice.dueDate).toISOString()}</span>
               </p>
             </div>
           </div>
           <div id="invoice-header" className="flex justify-between">
-            <div id="company-name" className=" text-sm">
-              <h3 className="font-semibold text-lg">Acme Corp.</h3>
-              <address>123 Main Street, CA.</address>
-              <p>(123) 456-7890</p>
-              <p>info@xyzsolutions.com</p>
+            <div id="seller-name" className=" text-sm">
+              <h3 className="font-semibold text-lg">{data.seller.name}</h3>
+              <address>{data.seller.address}</address>
+              <p>{data.seller.phone}</p>
+              <p>{data.seller.email}</p>
             </div>
             <div className="flex flex-col">
               <div id="bill-to" className="">
                 <h3 className="font-bold">Reciepient:</h3>
                 <div className="text-sm">
-                  <p>Wayne Enterprises</p>
-                  <address>456 Oak Avenue, KN</address>
-                  <p>account@wayne.com</p>
+                  <p>{data.client.name}</p>
+                  <address>{data.client.address}</address>
+                  <p>{data.client.email}</p>
                 </div>
               </div>
             </div>
@@ -63,46 +115,20 @@ const InvoiceTemplate = () => {
             </TableRow>
           </TableHeader>
           <TableBody className="text-left font-medium">
-            <TableRow>
-              <TableData className="py-2 border-y">
-                Web Design Service
-              </TableData>
-              <TableData className="py-2 border-y">2</TableData>
-              <TableData className="py-2 border-y">$500</TableData>
-              <TableData className="py-2 border-y">$1,000</TableData>
-            </TableRow>
-            <TableRow>
-              <TableData className="py-2 border-y">
-                Copywriting Service
-              </TableData>
-              <TableData className="py-2 border-y">3</TableData>
-              <TableData className="py-2 border-y">$100</TableData>
-              <TableData className="py-2 border-y">$300</TableData>
-            </TableRow>
-            <TableRow>
-              <TableData className="py-2 border-y">
-                Graphics design Service
-              </TableData>
-              <TableData className="py-2 border-y">5</TableData>
-              <TableData className="py-2 border-y">$500</TableData>
-              <TableData className="py-2 border-y">$2500</TableData>
-            </TableRow>
-            <TableRow className="">
-              <TableData className="text-left text-sm  py-2">
-                Subtotal:
-              </TableData>
-              <TableData className="text-right text-sm py-2">$3, 000</TableData>
-            </TableRow>
-            <TableRow>
-              <TableData className="text-left  text-sm py-2">
-                Tax (8%):
-              </TableData>
-              <TableData className="text-right text-sm py-2">$128</TableData>
-            </TableRow>
-            <TableRow>
-              <TableData className="text-left text-sm py-2">Total:</TableData>
-              <TableData className="text-right text-sm py-2">$3,128</TableData>
-            </TableRow>
+            {data.items.map((item, index) => (
+              <TableRow key={index}>
+                <TableData className="py-2 border-y">
+                  {item.description}
+                </TableData>
+                <TableData className="py-2 border-y">{item.quantity}</TableData>
+                <TableData className="py-2 border-y">
+                  {item.unitPrice}
+                </TableData>
+                <TableData className="py-2 border-y">
+                  {item.totalPrice}
+                </TableData>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
         <div className="space-y-2">
@@ -138,8 +164,8 @@ const InvoiceTemplate = () => {
             </p>
             <p>
               <li>
-                Services: The scope and details of the services provided are
-                outlined in the attached contract or agreement.
+                items: The scope and details of the items provided are outlined
+                in the attached contract or agreement.
               </li>
             </p>
             <p>
@@ -155,6 +181,8 @@ const InvoiceTemplate = () => {
           </p>
         </div>
       </main>
+      {/* {invoiceData.map(data =>(
+      ))} */}
     </section>
   );
 };
