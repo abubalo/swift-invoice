@@ -23,7 +23,7 @@ export const GET = async (req: Request) => {
   } catch (error) {}
 };
 
-export const UPDATE = async (req: Request) => {
+export const PUT = async (req: Request) => {
   try {
     const requestData = await req.json();
     const response = await createInvoice(requestData);
