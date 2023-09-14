@@ -7,7 +7,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import axios from "axios";
 import * as Yup from "yup"
 import { useRouter } from "next/navigation";
-import { AuthContext } from "@/app/utils/hooks/AuthContext";
+import { useAuth } from "@/app/utils/hooks/AuthContext";
 
 export type SinupData = {
   name: string;
@@ -23,7 +23,7 @@ type SetSubmit = {
 
 const SignUp = () => {
   const router = useRouter();
-  const {setUser} = useContext(AuthContext)
+  const {setUser} = useAuth();
 
   const onSubmit = async (
     values: SinupData,
