@@ -1,16 +1,19 @@
 import { ItemDocument } from "@/app/types/types";
 import { DeleteIcon } from "@/components/icons/Icons";
+import { FormikErrors } from "formik";
 import React, { ChangeEvent } from "react";
+import { InitialValues } from "./EditInvoiceForm";
 
 type Props = {
   item: ItemDocument;
   index: number;
+  errors: FormikErrors<InitialValues>;
   remove: (index: number) => void;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const ItemForm = ({ item, index, remove, handleChange }: Props) => {
-
+const ItemForm = ({ item, index, errors, remove, handleChange, handleBlur }: Props) => {
   return (
       <div className="flex items-end gap-5">
         <div className="flex flex-row basis-5/6 md:flex-col">
@@ -19,14 +22,13 @@ const ItemForm = ({ item, index, remove, handleChange }: Props) => {
             type="text"
             name={`items.${index}.description`}
             id={`items.${index}.description`}
-            value={item.name}
-            required
+            value={item.description}
             aria-required
             onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="item description"
             aria-label="Service description"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
-          />
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors.items ? "border-red-500" : "" }`} />
         </div>
         <div className="md:basis-[7%]">
           <label htmlFor="quantity">Qty</label>
@@ -39,11 +41,11 @@ const ItemForm = ({ item, index, remove, handleChange }: Props) => {
             pattern="[0-9]*"
             value={item.quantity}
             onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="Quantity"
-            required
             aria-required={true}
             arial-label="Quantity"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.items ? "border-red-500" : ""}`}
           />
         </div>
         <div className="md:basis-[7%]">
@@ -57,11 +59,11 @@ const ItemForm = ({ item, index, remove, handleChange }: Props) => {
             pattern="[0-9]*"
             value={item.unitPrice == 0 ? "" : item.unitPrice}
             onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="0.0"
-            required
             aria-required={true}
             arial-label="Price"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors.items ? "border-red-500" : ""}`}
           />
         </div>
         <div className="md:basis-[7%]">
@@ -73,19 +75,17 @@ const ItemForm = ({ item, index, remove, handleChange }: Props) => {
             min={0}
             inputMode={"numeric"}
             pattern="[0-9]*"
-            value={item.totalPrice = item.quantity * item.unitPrice}
+            value={item.unitPrice === 0 ? undefined : (item.totalPrice = item.quantity * item.unitPrice)}
             onChange={handleChange}
-            placeholder="0.0"
-            required
-            aria-required={true}
+            onBlur={handleBlur}
+            placeholder="0"
             arial-label="totalPrice"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500  leading-tight focus:outline-none bg-gray-800 ${errors.items ? "border-red-600" : ""}`}
           />
         </div>
         
         <button
           type="button"
-          // disabled= {index > 0}
           onClick={() => remove(index)}
           className="w-min h-min p-2 bg-red-600 text-white rounded-lg"
         >

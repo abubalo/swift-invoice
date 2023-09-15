@@ -17,7 +17,7 @@ const RateInput: FC<Props> = ({ label, name, id, value, handleChange }) => {
           type="text"
           name={name}
           id={id}
-          value={value}
+          value={value === 0 ? undefined : value}
           min={1}
           inputMode="numeric"
           pattern="[0-9]*"
