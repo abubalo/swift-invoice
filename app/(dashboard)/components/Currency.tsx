@@ -25,7 +25,7 @@ const Currency: FC<Props> = ({ currency, handleChange }) => {
         <option value="GBP">GBP</option>
         <option value="EUR">EUR</option>
         <option value="CAD">CAD</option>
-        <option value="CAD">NGN</option>
+        <option value="NGN">NGN</option>
       </select>
     </div>
   );
