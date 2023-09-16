@@ -108,7 +108,7 @@ const InvoiceForm = () => {
         onSubmit={onSubmit}
         validationSchema={valuesSchema}
       >
-        {({ values, errors, handleChange, handleBlur }) => {
+        {({ values, errors, handleChange, handleBlur, touched }) => {
           console.log("errors", errors);
           // console.log(values);
           return (
@@ -151,7 +151,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="sellerName">Seller Name</label>
                         <input
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.name ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="sellerName"
                           name="seller.name"
@@ -165,7 +165,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="address">Address</label>
                         <input
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.address ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="address"
                           name="seller.address"
@@ -179,7 +179,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="phone">Phone Number</label>
                         <input
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.phone ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="phone"
                           name="seller.phone"
@@ -193,7 +193,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="email">Email</label>
                         <input
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.email ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="email"
                           name="seller.email"
@@ -209,7 +209,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="clientName">client Name</label>
                         <input
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.client?.name ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="clientName"
                           name="client.name"
@@ -223,7 +223,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="address">Address</label>
                         <input
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.client?.address ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="address"
                           name="client.address"
@@ -238,7 +238,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="email">Email</label>
                         <input
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none"
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.client?.email ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="email"
                           name="client.email"
@@ -260,7 +260,8 @@ const InvoiceForm = () => {
                             key={index}
                             index={index}
                             item={item}
-                            errors={errors}
+                            touched={touched}
+                            errors={errors.items && errors.items[index]}
                             handleChange={handleChange}
                             handleBlur={handleBlur}
                             remove={() => arrayHelpers.remove(index)}
