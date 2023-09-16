@@ -1,12 +1,15 @@
+"use client"
+
 import DashboardHeader from "./components/DashboardHeader";
 import "../globals.css";
+import RequiredAuth from "../utils/RequiredAuth"
 
 export const metadata = {
   title: "Swift invoice",
   description: "Generate invoice on the go",
 };
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -21,3 +24,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RequiredAuth(RootLayout)
