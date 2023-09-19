@@ -5,7 +5,7 @@ import Jwt from "jsonwebtoken";
 import dbConnect from "../utils/db";
 
 dbConnect();
-export default class UserService{
+export default class UserService {
   public static addUser = async (
     name: string,
     email: string,
@@ -15,70 +15,75 @@ export default class UserService{
       const saltRounds = 10;
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
-  
+
       const newUser = await UserModel.create({
         name,
         email,
         password: hashedPassword,
       });
-    console.log("Add new user!")
       return newUser;
     } catch (error: any) {
       throw new Error(`Error adding user: ${error.message}`);
     }
   };
-  
+
   public static authenticate = async (
     email: string,
     password: string
   ): Promise<UserDocument | null> => {
-    const user = await UserModel.findOne({ email });
-  
+    try {
+      const user = await UserModel.findOne({ email });
+
     if (!user) {
       console.log("User does not exist");
       return null;
     }
-  
+
     const passwordMatches = bcrypt.compareSync(password, user.password);
-  
+
     if (!passwordMatches) {
       console.log("Passsword doas not match");
       return null;
     }
-  
+
     return user; // Return the found user document, or null if not found
+    } catch (error) {
+      return null;
+    }
   };
-  
-  public static selectUser = async (id: string): Promise<UserDocument | null> => {
+
+  public static selectUser = async (
+    id: string
+  ): Promise<UserDocument | null> => {
     try {
       const user = await UserModel.findById(id);
       return user;
     } catch (error: any) {
       console.log("User does not exist");
-      return null
+      return null;
     }
   };
-  
+
   public static updateUser = async (
     id: string,
-    newData: object
+    newData: Partial<UserDocument>
   ): Promise<UserDocument | null> => {
     const user = await UserModel.findByIdAndUpdate(id, newData);
-  
+
     if (!user) return null;
     return user;
   };
-  
+
   public static deleteUser = async (id: string): Promise<Boolean> => {
     try {
       const user = await UserModel.findByIdAndDelete(id);
-  
+
       return !!user;
     } catch (error) {
       return false;
     }
   };
-  
+
   public static verifyUser = async (email: string): Promise<Boolean> => {
     try {
       const isUserExist = await UserModel.findOne({ email });
@@ -88,32 +93,3 @@ export default class UserService{
     }
   };
 }
-
-export const generateAccessToken = async (user: string): Promise<string> => {
-  const jwtSecret = process.env.JWT_SECRET;
-  if (!jwtSecret) throw new Error("JWT is not provided");
-
-  const token = await Jwt.sign({ sub: user }, jwtSecret, {});
-  return token;
-};
-
-export const verifyAccessToken = async (
-  accessToken: string
-): Promise<UserDocument | null> => {
-  const jwtSecret = process.env.JWT_SECRET;
-  if (!jwtSecret) throw new Error("JWT is not provided");
-
-  try {
-    const decoded = Jwt.verify(accessToken, jwtSecret) as { userId: string };
-
-    const userId = decoded.userId;
-    const user = await UserModel.findOne({ userId });
-
-    if (!user) return null;
-
-    return user;
-  } catch (error: any) {
-    console.log({ error: error.message });
-    return null;
-  }
-};
