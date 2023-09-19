@@ -9,14 +9,12 @@ export interface AuthContextValue {
   user: UserDocument | null;
   setUser: Dispatch<SetStateAction<UserDocument | null>>;
   loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
   setUser: () => {},
   loading: false,
-  setLoading: () => Boolean,
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -39,10 +37,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [user]);
 
-  console.log("User Details: ", user)
-
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>
+    <AuthContext.Provider value={{ user, setUser, loading }}>
       {children}
     </AuthContext.Provider>
   );
