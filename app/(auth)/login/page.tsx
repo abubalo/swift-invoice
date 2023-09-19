@@ -42,7 +42,7 @@ const Login = () => {
   
       setUser(data);
   
-      router.replace("/dashboard");
+      router.replace("/overview");
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
         console.error("Invalid login credentials");
