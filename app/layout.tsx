@@ -13,12 +13,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  // dbConnect();
+  dbConnect();
 
   return (
     <html lang="en">
       <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
-      <body>
+      <body suppressHydrationWarning={true}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
