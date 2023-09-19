@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import EditInvoiceForm, { InitialValues as FormData } from '../../components/EditInvoiceForm'
+// import EditInvoiceForm, { InitialValues as FormData } from '../../components/EditInvoiceForm'
 
 type Props = {}
 
@@ -22,7 +22,8 @@ const Edit = (props: Props) => {
 
   return (
     <div>
-      <EditInvoiceForm data={data}/>
+      {/* <EditInvoiceForm data={data}/> */}
+      This preview page
     </div>
   )
 }
