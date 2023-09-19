@@ -29,7 +29,7 @@ const ItemForm = ({ item, index, errors, remove, handleChange, handleBlur, touch
             onBlur={handleBlur}
             placeholder="item description"
             aria-label="Service description"
-            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${touched && errors?.description ? "border-red-500" : "border-slate-500" }`} />
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none`} />
         </div>
         <div className="md:basis-[7%]">
           <label htmlFor={`items[${index}].quantity`}>Qty</label>
@@ -46,7 +46,8 @@ const ItemForm = ({ item, index, errors, remove, handleChange, handleBlur, touch
             placeholder="Quantity"
             aria-required={true}
             arial-label="Quantity"
-            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${touched && errors?.quantity ? "border-red-500" : "border-slate-500"}`}
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none `}
+            // className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${touched && errors?.quantity ? "border-red-500" : "border-slate-500"}`}
           />
         </div>
         <div className="md:basis-[7%]">
@@ -64,7 +65,8 @@ const ItemForm = ({ item, index, errors, remove, handleChange, handleBlur, touch
             placeholder="0.0"
             aria-required={true}
             arial-label="Price"
-            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${touched && errors?.unitPrice ? "border-red-500" : "border-slate-500"}`}
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none `}
+            // className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${touched && errors?.unitPrice ? "border-red-500" : "border-slate-500"}`}
           />
         </div>
         <div className="md:basis-[7%]">
@@ -81,7 +83,8 @@ const ItemForm = ({ item, index, errors, remove, handleChange, handleBlur, touch
             onBlur={handleBlur}
             placeholder="0"
             arial-label="totalPrice"
-            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500  leading-tight focus:outline-none bg-gray-800 ${touched && errors?.totalPrice ? "border-red-600" : ""}`}
+            className={`appearance-none border rounded w-full py-2 px-3 text-gray-500  leading-tight focus:outline-none bg-gray-800`}
+            // className={`appearance-none border rounded w-full py-2 px-3 text-gray-500  leading-tight focus:outline-none bg-gray-800 ${touched && errors?.totalPrice ? "border-red-600" : ""}`}
           />
         </div>
         
