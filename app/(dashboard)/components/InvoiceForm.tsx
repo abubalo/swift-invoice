@@ -16,7 +16,7 @@ import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/utils/hooks/AuthContext";
 
-type InitialValues = {
+export type InitialValues = {
   user: string;
   seller: Omit<SellerDocument, "user">;
   client: BuyerDocument;
