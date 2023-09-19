@@ -2,7 +2,7 @@ import { ItemDocument } from "@/app/types/types";
 import { DeleteIcon } from "@/components/icons/Icons";
 import { FormikErrors, FormikTouched } from "formik";
 import React, { ChangeEvent } from "react";
-import { InitialValues } from "./EditInvoiceForm";
+import { InitialValues } from "./InvoiceForm";
 
 type Props = {
   item: ItemDocument;
