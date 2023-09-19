@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import axios from "axios";
-import * as Yup from "yup"
+import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/utils/hooks/AuthContext";
 
@@ -20,38 +20,34 @@ type SetSubmit = {
   setSubmitting: (isSubmitting: boolean) => void;
 };
 
-
 const SignUp = () => {
   const router = useRouter();
-  const {setUser} = useAuth();
+  const { setUser } = useAuth();
 
-  const onSubmit = async (
-    values: SinupData,
-    { setSubmitting }: SetSubmit
-  ) => {
+  const onSubmit = async (values: SinupData, { setSubmitting }: SetSubmit) => {
     try {
-      const {name, email, password} = values;
-      const response = await axios.post("api/user", {name, email, password});
+      const { name, email, password } = values;
+      const response = await axios.post("api/user", { name, email, password });
       setUser(response.data);
-      if(response){
-        router.replace("/dashboard");
+      if (response) {
+        router.replace("/overview");
       }
     } catch (error: any) {
       console.log(error.message);
-    }finally{
-      setSubmitting(false)
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const formSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().email('Invalid email').required('Email is required'),
+    name: Yup.string().required("Name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters long'), // You can add additional password requirements here
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters long"), // You can add additional password requirements here
     confirm: Yup.string()
-      .required('Password confirmation is required')
-      .oneOf([Yup.ref('password')], 'Passwords must match'), // This checks if "confirm" matches "password"
+      .required("Password confirmation is required")
+      .oneOf([Yup.ref("password")], "Passwords must match"), // This checks if "confirm" matches "password"
   });
 
   const initialValues = {
@@ -106,7 +102,11 @@ const SignUp = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                     />
-                    <ErrorMessage name="name" component="div" className="text-red-700"/>
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className="text-red-700"
+                    />
                   </div>
                   <div>
                     <label
@@ -125,7 +125,11 @@ const SignUp = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                     />
-                    <ErrorMessage name="email" component="div" className="text-red-700"/>
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-red-700"
+                    />
                   </div>
                   <div>
                     <label
@@ -145,7 +149,11 @@ const SignUp = () => {
                       autoComplete="current-password"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
-                    <ErrorMessage name="password" component="div" className="text-red-700"/>
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="text-red-700"
+                    />
                   </div>
                   <div>
                     <label
@@ -165,7 +173,11 @@ const SignUp = () => {
                       autoComplete="current-password"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
-                    <ErrorMessage name="confirm" component="div" className="text-red-700"/>
+                    <ErrorMessage
+                      name="confirm"
+                      component="div"
+                      className="text-red-700"
+                    />
                   </div>
                   <div className="flex items-start">
                     <div className="flex items-center h-5">
