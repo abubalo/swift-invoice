@@ -1,12 +1,10 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
-import React from "react";
-import type { ComponentType } from "react";
-import { useAuth } from "./hooks/AuthContext";
+import { AuthContextValue, useAuth } from "./hooks/AuthContext";
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
 
-const RequiredAuth = <T extends object>(WrappedComponent: any) => {
+const RequiredAuth = <T extends AuthContextValue>(WrappedComponent: any) => {
   return function WithAuth(props: T) {
     const { user, loading } = useAuth();
     const router = useRouter();
@@ -16,11 +14,7 @@ const RequiredAuth = <T extends object>(WrappedComponent: any) => {
       return null;
     }
 
-    if (loading) {
-      return <LoadingIndicator />;
-    }
-
-    return <WrappedComponent {...props} />;
+    return loading ? <LoadingIndicator /> : <WrappedComponent {...props} />;
   };
 };
 
