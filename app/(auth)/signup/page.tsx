@@ -44,7 +44,7 @@ const SignUp = () => {
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
       .required("Password is required")
-      .min(6, "Password must be at least 6 characters long"), // You can add additional password requirements here
+      .min(6, "Password must be at least 6 characters long"),
     confirm: Yup.string()
       .required("Password confirmation is required")
       .oneOf([Yup.ref("password")], "Passwords must match"), // This checks if "confirm" matches "password"
@@ -99,6 +99,7 @@ const SignUp = () => {
                       value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      autoComplete="fullname"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                     />
@@ -122,6 +123,7 @@ const SignUp = () => {
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      autoComplete="email"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
                     />
