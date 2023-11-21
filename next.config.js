@@ -3,7 +3,10 @@ const nextConfig = {
   images: {
     domains: ["images.unsplash.com"], // Add the domain of the image source here
   },
-  experimental: { appDir: true , serverComponentsExternalPackages: ["mongoose"],},
+  experimental: { 
+    serverComponentsExternalPackages: ["mongoose"],  
+    serverActions: true,
+  },
   webpack(config) {
     config.experiments = { ...config.experiments, topLevelAwait: true };
     return config;
