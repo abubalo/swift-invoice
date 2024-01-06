@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateAccessToken } from "../../utils/auth";
+import { generateAccessToken } from "../../utils/accessToken";
 import UserService from "../service";
 import { serialize, parse } from "cookie";
 
@@ -8,7 +8,6 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const {email, password} = await req.json()
     const user = await UserService.authenticate(email, password);
-    console.log("USER:", user)
 
     if (!user) {
       return NextResponse.json("Invalid login credentials", { status: 401 });
@@ -19,8 +18,9 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
     const cookie = serialize("token", token, {
       httpOnly: true,
       sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       path: "/",
+      expires : new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
 
     return NextResponse.json(user, {

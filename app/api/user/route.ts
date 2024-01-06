@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import UserService from "./service";
-import { verifyAccessToken } from "../utils/auth";
+import { verifyAccessToken } from "../utils/accessToken";
 
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
   try {
@@ -30,23 +30,23 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
 export const GET = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const token = req.cookies.get("token")?.value;
-    console.log("Token: ", token);
 
     if (!token) {
       return NextResponse.json({ error: "Unauthize access" }, { status: 409 });
     }
+    
+    const userData = await verifyAccessToken(token);
+    if(!userData){
+     return NextResponse.json("User doest", { status: 401 });
 
-    const decodedToken = await verifyAccessToken(token);
-    const userId = decodedToken?._id;
+   }
 
-    const data = await UserService.selectUser(userId);
-
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(userData, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
-    );
+      );
   }
 };
 
