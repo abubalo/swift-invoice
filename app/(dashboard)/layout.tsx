@@ -5,11 +5,11 @@ import "../globals.css";
 import RequiredAuth from "../utils/RequiredAuth"
 
 
-function RootLayout({
+const  RootLayout = RequiredAuth(({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <html lang="en">
       <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
@@ -19,6 +19,6 @@ function RootLayout({
       </body>
     </html>
   );
-}
+})
 
-export default RequiredAuth(RootLayout)
+export default RootLayout
