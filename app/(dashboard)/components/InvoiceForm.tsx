@@ -110,7 +110,6 @@ const InvoiceForm = () => {
       >
         {({ values, errors, handleChange, handleBlur, touched }) => {
           console.log("errors", errors);
-          // console.log(values);
           return (
             <Form className="flex flex-col gap-3  p-4 md:flex-row-reverse">
               <div className="w-full h-auto md:w-1/5 md:sticky  md:flex md:flex-col md:items-start md:justify-start md:space-y-2 md:p-2">
@@ -251,7 +250,7 @@ const InvoiceForm = () => {
                       </div>
                     </div>
                   </div>
-                  <FieldArray name="items" className="">
+                  <FieldArray name="items" >
                     {(arrayHelpers: FieldArrayRenderProps) => (
                       <div>
                         {/* Map through items and render itemForm */}
