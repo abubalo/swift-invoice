@@ -1,6 +1,10 @@
 import { Document, ObjectId } from "mongoose"
 
-
+interface ResponseData<T>{
+  error?: string;
+  success?: boolean;
+  data: T
+}
 export interface UserDocument extends Document {
   name: string;
   email: string;
@@ -40,7 +44,7 @@ export interface BuyerDocument {
 export interface InvoiceDocument extends Document {
   user: ObjectId,
   invoice: {
-    number: string,
+    number: Date,
     issueDate: Date,
     dueDate: Date 
   };
@@ -50,11 +54,11 @@ export interface InvoiceDocument extends Document {
   subTotal: number;
   taxtRate: number;
   discountRate: number;
-  discountAmount: number;
+  discountAmount?: number;
   total: number;
   currency: "USD" | "EUR" | "NGN" | "AUD" | "GBP";
-  paymentStatus: "Pending" | "Paid" | "Due";
-  paymentHistory: {
+  paymentStatus: "pending" | "paid" | "due";
+  paymentHistory?: {
     paymentDate: Date;
     amount: number;
   }[];
