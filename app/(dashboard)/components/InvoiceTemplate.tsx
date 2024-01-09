@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Table,
   TableBody,
@@ -8,58 +6,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/table/TableUtils";
-import { FC, useEffect, useState } from "react";
 import Logo from "@/components/ui/Logo";
-import InvoiceModel from "@/app/api/invioce/model";
-import { InvoiceDocument } from "@/app/types/types";
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
+import { InvoiceDocument } from "@/app/types/types";
 
 type Props = {
-  invoiceNo: string | string[];
+  data: InvoiceDocument;
 };
 
-async function getInvoiceData(
-  invoiceNo: string | string[]
-): Promise<InvoiceDocument | null> {
-  try {
-    return await InvoiceModel.findOne({ invoiceNo });
-  } catch (error) {
-    return null;
-  }
-}
-
-const InvoiceTemplate: FC<Props> = ({ invoiceNo }) => {
-  const [data, setData] = useState<InvoiceDocument | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getInvoiceData(invoiceNo);
-        setData(result);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setData(null);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [invoiceNo]);
-
-  if (!loading) {
-    return (
-      <div>
-        <LoadingIndicator />
-      </div>
-    );
-  }
-
-  if (!data) {
-    return <div>Unable to fetch data</div>;
-  }
-
+const InvoiceTemplate = ({ data }: Props) => {
   return (
     <section className="w-full h-auto top-0 left-0 bg-white text-black">
       <main className="w-full h-auto p-3 space-y-10">
@@ -69,7 +24,7 @@ const InvoiceTemplate: FC<Props> = ({ invoiceNo }) => {
             <div className="text-sm">
               <p>
                 <span className="font-semibold">Invoice No:</span>
-                <span>{data.invoice.number}</span>
+                <span>{data.invoice.number.toString()}</span>
               </p>
               <p>
                 <span className="font-semibold">Issue Date:</span>
