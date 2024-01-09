@@ -1,22 +1,25 @@
 import { InvoiceDocument } from "@/app/types/types";
+import dbConnect from "../utils/db";
 import InvoiceModel from "./model";
 
+dbConnect();
 export const addInvoice = async (
   data: InvoiceDocument
 ): Promise<InvoiceDocument | null> => {
   try {
     const invoice = await InvoiceModel.create(data);
     return invoice;
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error.message)
     return null;
   }
 };
 
 export const selectInvoice = async (
-  id: string
+  invoiceNo: string
 ): Promise<InvoiceDocument | null> => {
   try {
-    const invoice = await InvoiceModel.findById(id);
+    const invoice = await InvoiceModel.findOne({'invoice.number': invoiceNo});
 
     if (!invoice) {
       return null;

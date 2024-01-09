@@ -1,0 +1,29 @@
+{
+  "user": "659965158fc054b2508a59ce",
+  "seller": {
+    "name": "Jack Savafe",
+    "address": "KG 277 st, Kigali",
+    "phone": "+250790003193",
+    "email": "abyzynobalgun@gmail.com"
+  },
+  "client": {
+    "name": "Acme inc.",
+    "address": "KN 153, Biryogo, Nyamirambo",
+    "email": "baloabubakar@gmail.com"
+  },
+  "items": [
+    {
+      "description": "Web design",
+      "quantity": 1,
+      "unitPrice": 100,
+      "totalPrice": 100
+    }
+  ],
+  "subTotal": 0,
+  "taxRate": 0,
+  "discountRate": 0,
+  "discountAmount": 0,
+  "total": 0,
+  "currency": "USD",
+  "paymentStatus": "pending"
+}
