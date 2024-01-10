@@ -52,7 +52,7 @@ export interface InvoiceDocument extends Document {
   client: BuyerDocument;
   items: ItemDocument[];
   subTotal: number;
-  taxtRate: number;
+  taxRate: number;
   discountRate: number;
   discountAmount?: number;
   total: number;
