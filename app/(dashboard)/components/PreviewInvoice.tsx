@@ -14,7 +14,7 @@ type Props = {
   data: InvoiceDocument;
 };
 
-const InvoiceTemplate = ({ data }: Props) => {
+const PreviewInvoice = ({ data }: Props) => {
   return (
     <section className="w-full h-auto top-0 left-0 bg-white text-black">
       <main className="w-full h-auto p-3 space-y-10">
@@ -142,4 +142,4 @@ const InvoiceTemplate = ({ data }: Props) => {
   );
 };
 
-export default InvoiceTemplate;
+export default PreviewInvoice;
