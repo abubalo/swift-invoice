@@ -68,14 +68,13 @@ type Props = {
 };
 const EditInvoiceForm = ({ data }: Props) => {
   const router = useRouter();
-  console.log("InvoiceData: ",data)
+  console.log("InvoiceData: ", data);
 
   const { user } = useAuth();
 
-  if(!data){
-    return <div>No data</div>
+  if (!data) {
+    return <div>No data</div>;
   }
-
 
   const initialValues = {
     user: user?.id,
@@ -121,11 +120,7 @@ const EditInvoiceForm = ({ data }: Props) => {
             <Form className="flex flex-col gap-3  p-4 md:flex-row-reverse">
               <div className="w-full h-auto md:w-1/5 md:sticky  md:flex md:flex-col md:items-start md:justify-start md:space-y-2 md:p-2">
                 <div className="w-full">
-                  <Button
-                    type="submit"
-                  >
-                    Save & Review Invoice
-                  </Button>
+                  <Button type="submit">Save & Preview</Button>
                 </div>
                 <Currency
                   currency={values.currency}
@@ -324,13 +319,10 @@ const EditInvoiceForm = ({ data }: Props) => {
                       <div className="flex justify-between p-2">
                         <span className="font-semibold">SubTotal:</span>
                         <span>
-                          {values.items
-                            .reduce(
-                              (acc, item) =>
-                                acc + item.quantity * item.unitPrice,
-                              0
-                            )
-                            .toFixed(2)}
+                          {(values.subTotal = values.items.reduce(
+                            (acc, item) => acc + item.quantity * item.unitPrice,
+                            0
+                          )).toFixed(2)}
                         </span>
                       </div>
                       <div className="flex justify-between p-2">
@@ -345,14 +337,15 @@ const EditInvoiceForm = ({ data }: Props) => {
                         <span className="font-bold">Total:</span>
                         <span>
                           $
-                          {(
+                          {(values.total =
                             values.items.reduce(
                               (acc, item) =>
                                 acc + item.quantity * item.unitPrice,
                               0
                             ) *
-                            (1 + values.taxRate - values.discountRate)
-                          ).toFixed(2)}
+                            (1 + values.taxRate - values.discountRate)).toFixed(
+                            2
+                          )}
                         </span>
                       </div>
                     </div>

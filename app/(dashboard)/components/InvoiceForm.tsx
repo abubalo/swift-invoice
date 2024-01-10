@@ -15,16 +15,20 @@ import RateInput from "./RateInput";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/utils/hooks/AuthContext";
+import Button from "@/components/ui/Button";
 
 export type InitialValues = {
   user: string;
   seller: Omit<SellerDocument, "user">;
   client: BuyerDocument;
   items: ItemDocument[];
-  tax: number;
-  discount: number;
+  subTotal: number;
+  taxRate: number;
+  discountRate: number;
+  discountAmount?: number;
   total: number;
   currency: "USD" | "EUR" | "NGN" | "AUD" | "GBP";
+  paymentStatus: string;
 };
 
 // Define your Yup validation schema
@@ -79,21 +83,24 @@ const InvoiceForm = () => {
         totalPrice: 0,
       },
     ],
+    subTotal: 0,
 
-    tax: 0,
-    discount: 0,
+    taxRate: 0,
+    discountRate: 0,
+    discountAmount: 0,
     total: 0,
-    currency: "USD" as "USD" | "EUR" | "NGN" | "AUD" | "GBP", //Initial value
+    currency: "USD" as "USD" | "EUR" | "NGN" | "AUD" | "GBP",
+    paymentStatus: "pending"
   };
 
   const onSubmit = async (inputData: InitialValues) => {
     try {
       const response: AxiosResponse<InvoiceDocument> = await axios.post(
-        "api/invoice/",
+        "/api/invoice",
         inputData
       );
       const data = response.data;
-      const invoiceNumber = data.invoice.number;
+      const invoiceNumber = data.invoice?.number;
 
       router.replace(`/invoice/preview?v=${invoiceNumber}`);
     } catch (error: any) {
@@ -110,34 +117,35 @@ const InvoiceForm = () => {
       >
         {({ values, errors, handleChange, handleBlur, touched }) => {
           console.log("errors", errors);
+          console.log("Data: ", values)
           return (
             <Form className="flex flex-col gap-3  p-4 md:flex-row-reverse">
               <div className="w-full h-auto md:w-1/5 md:sticky  md:flex md:flex-col md:items-start md:justify-start md:space-y-2 md:p-2">
                 <div className="w-full">
-                  <button
+                  <Button
                     type="submit"
                     className="w-full bg-primary p-2 rounded-md"
                   >
-                    Review Invoice
-                  </button>
+                    Save & Preview
+                  </Button>
                 </div>
                 <Currency
                   currency={values.currency}
                   handleChange={handleChange}
                 />
                 <RateInput
-                  id="tax"
-                  label="taxRate"
-                  name="tax"
-                  value={values.tax}
+                  id="taxRate"
+                  label="taxRateRate"
+                  name="taxRate"
+                  value={values.taxRate}
                   handleChange={handleChange}
                 />
                 <RateInput
-                  id="discount"
-                  label="discountRate"
-                  name="discount"
+                  id="discountRate"
+                  label="discountRateRate"
+                  name="discountRate"
                   handleChange={handleChange}
-                  value={values.discount}
+                  value={values.discountRate}
                 />
               </div>
               <div className="w-full min-h-screen md:w-4/5">
@@ -150,7 +158,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="sellerName">Seller Name</label>
                         <input
-                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.name ? "border-red-500" : "border-slate-500"}`}
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-800 leading-tight placeholder:text-gray-500 focus:outline-none ${errors?.seller?.name ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="sellerName"
                           name="seller.name"
@@ -164,7 +172,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="address">Address</label>
                         <input
-                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.address ? "border-red-500" : "border-slate-500"}`}
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-800 leading-tight placeholder:text-gray-500 focus:outline-none ${errors?.seller?.address ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="address"
                           name="seller.address"
@@ -178,7 +186,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="phone">Phone Number</label>
                         <input
-                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.phone ? "border-red-500" : "border-slate-500"}`}
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-800 leading-tight placeholder:text-gray-500 focus:outline-none ${errors?.seller?.phone ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="phone"
                           name="seller.phone"
@@ -192,7 +200,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="email">Email</label>
                         <input
-                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.seller?.email ? "border-red-500" : "border-slate-500"}`}
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-800 leading-tight placeholder:text-gray-500 focus:outline-none ${errors?.seller?.email ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="email"
                           name="seller.email"
@@ -208,7 +216,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="clientName">client Name</label>
                         <input
-                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.client?.name ? "border-red-500" : "border-slate-500"}`}
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-800 leading-tight placeholder:text-gray-500 focus:outline-none ${errors?.client?.name ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="clientName"
                           name="client.name"
@@ -222,7 +230,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="address">Address</label>
                         <input
-                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.client?.address ? "border-red-500" : "border-slate-500"}`}
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-800 leading-tight placeholder:text-gray-500 focus:outline-none ${errors?.client?.address ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="address"
                           name="client.address"
@@ -237,7 +245,7 @@ const InvoiceForm = () => {
                       <div id="" className="space-y-1">
                         <label htmlFor="email">Email</label>
                         <input
-                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-500 bg-gray-800 leading-tight focus:outline-none ${errors?.client?.email ? "border-red-500" : "border-slate-500"}`}
+                          className={`appearance-none border rounded w-full py-2 px-3 text-gray-100 bg-gray-800 leading-tight placeholder:text-gray-500 focus:outline-none ${errors?.client?.email ? "border-red-500" : "border-slate-500"}`}
                           type="text"
                           id="email"
                           name="client.email"
@@ -290,35 +298,35 @@ const InvoiceForm = () => {
                       <div className="flex justify-between p-2">
                         <span className="font-semibold">SubTotal:</span>
                         <span>
-                          {values.items
+                          {(values.subTotal = values.items
                             .reduce(
                               (acc, item) =>
                                 acc + item.quantity * item.unitPrice,
                               0
-                            )
+                            ))
                             .toFixed(2)}
                         </span>
                       </div>
                       <div className="flex justify-between p-2">
-                        <span className="font-semibold">Tax:</span>
-                        <span>{(values.tax * 100).toFixed(2)}%</span>
+                        <span className="font-semibold">TaxRate:</span>
+                        <span>{(values.taxRate * 100).toFixed(2)}%</span>
                       </div>
                       <div className="flex justify-between p-2">
-                        <span className="font-semibold">Discount:</span>
-                        <span>{(values.discount * 100).toFixed(2)}%</span>
+                        <span className="font-semibold">DiscountRate:</span>
+                        <span>{(values.discountRate * 100).toFixed(2)}%</span>
                       </div>
                       <div className="flex justify-between p-2 border-t">
                         <span className="font-bold">Total:</span>
                         <span>
                           $
-                          {(
+                          {(values.total = (
                             values.items.reduce(
                               (acc, item) =>
                                 acc + item.quantity * item.unitPrice,
                               0
                             ) *
-                            (1 + values.tax - values.discount)
-                          ).toFixed(2)}
+                            (1 + values.taxRate - values.discountRate)
+                          )).toFixed(2)}
                         </span>
                       </div>
                     </div>
