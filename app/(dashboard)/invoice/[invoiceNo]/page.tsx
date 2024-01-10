@@ -1,7 +1,7 @@
 import { selectInvoice } from "@/app/api/invoice/service";
 import { notFound } from "next/navigation";
 import React from "react";
-import InvoiceTemplate from "../../components/InvoiceTemplate";
+import PreviewInvoice from "../../components/PreviewInvoice";
 
 type Props = {
   params: {
@@ -20,7 +20,7 @@ const Preview = async ({params}: Props) => {
 
   return (
     <main>
-      <InvoiceTemplate data={invoiceData} />
+      <PreviewInvoice data={invoiceData} />
     </main>
   );
 }
